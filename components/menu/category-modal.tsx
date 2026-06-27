@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 const categorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Nome é obrigatório"),
   emoji: z.string().optional(),
   displayOrder: z.coerce.number().min(0),
   isActive: z.boolean().default(true),
@@ -74,15 +74,15 @@ export function CategoryModal({ isOpen, onClose, onSuccess, category }: Category
       setIsSubmitting(true);
       if (category) {
         await apiClient.patch(`/menu/categories/${category.id}`, data);
-        toast.success("Category updated successfully");
+        toast.success("Categoria atualizada com sucesso");
       } else {
         await apiClient.post("/menu/categories", data);
-        toast.success("Category created successfully");
+        toast.success("Categoria criada com sucesso");
       }
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error(category ? "Failed to update category" : "Failed to create category");
+      toast.error(category ? "Falha ao atualizar categoria" : "Falha ao criar categoria");
     } finally {
       setIsSubmitting(false);
     }
@@ -92,7 +92,7 @@ export function CategoryModal({ isOpen, onClose, onSuccess, category }: Category
     <Modal open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>{category ? "Edit Category" : "Add Category"}</ModalTitle>
+          <ModalTitle>{category ? "Editar Categoria" : "Adicionar Categoria"}</ModalTitle>
         </ModalHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -102,19 +102,19 @@ export function CategoryModal({ isOpen, onClose, onSuccess, category }: Category
               <Input {...register("emoji")} placeholder="📁" className="text-center text-xl" />
             </div>
             <div className="space-y-2 col-span-3">
-              <Label>Name *</Label>
-              <Input {...register("name")} placeholder="e.g. Main Course" />
+              <Label>Nome *</Label>
+              <Input {...register("name")} placeholder="ex: Prato Principal" />
               {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Display Order</Label>
+              <Label>Ordem de Exibição</Label>
               <Input type="number" {...register("displayOrder")} />
             </div>
             <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30">
-              <Label className="cursor-pointer">Active Status</Label>
+              <Label className="cursor-pointer">Status Ativo</Label>
               <Switch
                 checked={watch("isActive")}
                 onCheckedChange={(val) => setValue("isActive", val)}
@@ -124,11 +124,11 @@ export function CategoryModal({ isOpen, onClose, onSuccess, category }: Category
 
           <div className="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {category ? "Update Category" : "Create Category"}
+              {category ? "Atualizar Categoria" : "Criar Categoria"}
             </Button>
           </div>
         </form>

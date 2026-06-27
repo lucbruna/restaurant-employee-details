@@ -61,7 +61,7 @@ export default function KitchenPage() {
           socket.on("kot:new", (data) => {
             setKots(prev => [data, ...prev]);
             playNewKotAlert();
-            toast("New Order Received!", { icon: "🔔" });
+            toast("Novo Pedido Recebido!", { icon: "🔔" });
           });
 
           socket.on("kot:updated", ({ id, status }) => {
@@ -72,7 +72,7 @@ export default function KitchenPage() {
         const res = await apiClient.get("/kitchen/kots");
         setKots(res.data);
       } catch (error) {
-        toast.error("Failed to load KOTs");
+        toast.error("Falha ao carregar KOTs");
       } finally {
         setIsLoading(false);
       }
@@ -94,7 +94,7 @@ export default function KitchenPage() {
       await apiClient.patch(`/kitchen/kots/${kotId}`, { status: newStatus });
     } catch (error) {
       // Revert on error
-      toast.error("Failed to update status");
+      toast.error("Falha ao atualizar status");
       // Ideally refetch or revert state
     }
   };
@@ -125,16 +125,16 @@ export default function KitchenPage() {
           <div className="bg-primary/20 p-2 rounded-lg">
             <ChefHat className="w-6 h-6 text-primary" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight">Kitchen Display</h1>
+          <h1 className="text-xl font-bold tracking-tight">Display da Cozinha</h1>
         </div>
 
         <div className="flex items-center gap-6">
-          <StatBadge icon={<Clock />} label="Pending" count={pendingCount} color="text-warning" />
-          <StatBadge icon={<PlayCircle />} label="Preparing" count={preparingCount} color="text-info" />
-          <StatBadge icon={<CheckCircle2 />} label="Ready" count={readyCount} color="text-success" />
+          <StatBadge icon={<Clock />} label="Pendente" count={pendingCount} color="text-warning" />
+          <StatBadge icon={<PlayCircle />} label="Preparando" count={preparingCount} color="text-info" />
+          <StatBadge icon={<CheckCircle2 />} label="Pronto" count={readyCount} color="text-success" />
           <div className="h-8 w-px bg-white/20 mx-2" />
           <div className="flex flex-col items-end">
-            <span className="text-xs text-white/50 uppercase tracking-wider font-semibold">Avg Prep Time</span>
+            <span className="text-xs text-white/50 uppercase tracking-wider font-semibold">Tempo Médio de Preparo</span>
             <span className="text-lg font-bold font-mono">14m 30s</span>
           </div>
         </div>
@@ -143,10 +143,10 @@ export default function KitchenPage() {
       {/* Filter Bar */}
       <div className="px-6 py-3 flex items-center gap-2 overflow-x-auto scrollbar-hide border-b border-white/5">
         <Filter className="w-4 h-4 text-white/50 mr-2" />
-        <FilterChip label="All Orders" active={filter === "all"} onClick={() => setFilter("all")} />
-        <FilterChip label="Dine In" active={filter === "dine_in"} onClick={() => setFilter("dine_in")} />
-        <FilterChip label="Takeaway" active={filter === "takeaway"} onClick={() => setFilter("takeaway")} />
-        <FilterChip label="Delivery" active={filter === "delivery"} onClick={() => setFilter("delivery")} />
+        <FilterChip label="Todos Pedidos" active={filter === "all"} onClick={() => setFilter("all")} />
+        <FilterChip label="Refeição Local" active={filter === "dine_in"} onClick={() => setFilter("dine_in")} />
+        <FilterChip label="Retirada" active={filter === "takeaway"} onClick={() => setFilter("takeaway")} />
+        <FilterChip label="Entrega" active={filter === "delivery"} onClick={() => setFilter("delivery")} />
       </div>
 
       {/* KOT Grid */}
@@ -154,7 +154,7 @@ export default function KitchenPage() {
         {filteredKots.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-white/30 pt-20">
             <ChefHat className="w-16 h-16 mb-4 opacity-50" />
-            <p className="text-lg">No active orders</p>
+            <p className="text-lg">Nenhum pedido ativo</p>
           </div>
         ) : (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6 pb-20">

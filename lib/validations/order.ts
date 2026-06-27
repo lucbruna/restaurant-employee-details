@@ -22,7 +22,7 @@ export const createOrderSchema = z.object({
   customerId: z.string().optional(),
   orderType: z.enum(['dine_in', 'takeaway', 'delivery', 'online']),
   paxCount: z.number().min(1).default(1),
-  items: z.array(orderItemSchema).min(1, 'Order must have at least one item'),
+  items: z.array(orderItemSchema).min(1, 'O pedido deve ter pelo menos um item'),
   specialInstructions: z.string().optional(),
 });
 
@@ -35,7 +35,7 @@ export const paymentSplitSchema = z.object({
 
 export const processPaymentSchema = z.object({
   orderId: z.string(),
-  splits: z.array(paymentSplitSchema).min(1, 'At least one payment method required'),
+  splits: z.array(paymentSplitSchema).min(1, 'Pelo menos um método de pagamento é obrigatório'),
   totalAmount: z.number().min(0),
   changeAmount: z.number().default(0),
 });

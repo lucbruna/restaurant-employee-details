@@ -66,7 +66,7 @@ export function ItemGrid({ categories, items, activeCategoryId }: ItemGridProps)
         <div className="relative mb-3">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input 
-            placeholder="Search items, codes, tags... (Press / to focus)" 
+            placeholder="Buscar itens, códigos, tags... (Pressione / para focar)" 
             className="h-12 rounded-[var(--radius-large)] border-border/60 bg-background pl-10 text-lg shadow-[var(--shadow-elevation-1)] focus-visible:bg-background"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -74,11 +74,11 @@ export function ItemGrid({ categories, items, activeCategoryId }: ItemGridProps)
         </div>
 
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-          <FilterChip label="All" active={filter === "all"} onClick={() => setFilter("all")} />
+          <FilterChip label="Todos" active={filter === "all"} onClick={() => setFilter("all")} />
           <FilterChip label="🟢 Veg" active={filter === "veg"} onClick={() => setFilter("veg")} />
-          <FilterChip label="🔴 Non-Veg" active={filter === "non_veg"} onClick={() => setFilter("non_veg")} />
-          <FilterChip label="⭐ Bestseller" active={filter === "bestseller"} onClick={() => setFilter("bestseller")} />
-          <FilterChip label="⚡ Quick" active={filter === "quick"} onClick={() => setFilter("quick")} icon={<Zap className="w-3 h-3 mr-1" />} />
+          <FilterChip label="🔴 Não-Veg" active={filter === "non_veg"} onClick={() => setFilter("non_veg")} />
+          <FilterChip label="⭐ Mais Vendido" active={filter === "bestseller"} onClick={() => setFilter("bestseller")} />
+          <FilterChip label="⚡ Rápido" active={filter === "quick"} onClick={() => setFilter("quick")} icon={<Zap className="w-3 h-3 mr-1" />} />
         </div>
       </div>
 
@@ -87,12 +87,12 @@ export function ItemGrid({ categories, items, activeCategoryId }: ItemGridProps)
         {filteredItems.length === 0 ? (
           <StatePanel
             tone="empty"
-            eyebrow="Bhukkad Menu Search"
-            title="No dishes match this search yet"
-            description="Try a broader search, switch filters, or jump back to all categories to keep service moving."
+            eyebrow="Busca no Cardápio Bhukkad"
+            title="Nenhum prato corresponde a esta busca ainda"
+            description="Tente uma busca mais ampla, altere os filtros ou volte para todas as categorias para manter o serviço fluindo."
             className="min-h-[320px] justify-center"
             primaryAction={{
-              label: "Clear Search",
+              label: "Limpar Busca",
               onClick: () => {
                 setSearchQuery("");
                 setFilter("all");
@@ -123,7 +123,7 @@ export function ItemGrid({ categories, items, activeCategoryId }: ItemGridProps)
                             </div>
                             {item.isBestseller ? (
                               <div className="rounded-full bg-warning px-2 py-1 text-[10px] font-bold text-secondary-foreground shadow-sm">
-                                BESTSELLER
+                                MAIS VENDIDO
                               </div>
                             ) : null}
                             {item.prepTimeMinutes ? (
@@ -136,7 +136,7 @@ export function ItemGrid({ categories, items, activeCategoryId }: ItemGridProps)
                             {item.name}
                           </h3>
                           <p className="line-clamp-1 text-[10px] font-bold uppercase tracking-[0.18em] text-text-muted">
-                            {item.shortCode || category?.name || "Menu Item"}
+                            {item.shortCode || category?.name || "Item do Cardápio"}
                           </p>
                         </div>
                       </div>

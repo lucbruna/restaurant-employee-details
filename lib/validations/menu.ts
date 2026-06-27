@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const modifierSchema = z.object({
   id: z.string().optional(),
-  name: z.string().min(1, 'Name is required'),
+  name: z.string().min(1, 'Nome é obrigatório'),
   priceDelta: z.number().default(0),
   isDefault: z.boolean().default(false),
   isActive: z.boolean().default(true),
@@ -10,7 +10,7 @@ export const modifierSchema = z.object({
 
 export const modifierGroupSchema = z.object({
   id: z.string().optional(),
-  name: z.string().min(1, 'Name is required'),
+  name: z.string().min(1, 'Nome é obrigatório'),
   selectionType: z.enum(['single', 'multiple']),
   minSelections: z.number().min(0).default(0),
   maxSelections: z.number().min(1).default(1),
@@ -20,15 +20,15 @@ export const modifierGroupSchema = z.object({
 
 export const menuItemSchema = z.object({
   id: z.string().optional(),
-  categoryId: z.string().min(1, 'Category is required'),
-  name: z.string().min(1, 'Name is required'),
+  categoryId: z.string().min(1, 'Categoria é obrigatória'),
+  name: z.string().min(1, 'Nome é obrigatório'),
   description: z.string().max(500).optional(),
   shortCode: z.string().optional(),
   imageUrl: z
     .union([z.string().url(), z.string().startsWith('/'), z.literal('')])
     .optional()
     .nullable(),
-  basePrice: z.number().min(0, 'Price must be positive'),
+  basePrice: z.number().min(0, 'O preço deve ser positivo'),
   foodType: z.enum(['veg', 'non_veg', 'vegan', 'egg']),
   taxCategoryId: z.string().optional(),
   isActive: z.boolean().default(true),

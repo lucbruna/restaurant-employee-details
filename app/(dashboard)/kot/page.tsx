@@ -45,7 +45,7 @@ export default function KotPage() {
         setKots(response.data);
       } catch (error) {
         console.error("[KOT_PAGE_LOAD]", error);
-        toast.error("Failed to load kitchen tickets");
+        toast.error("Falha ao carregar tickets da cozinha");
       } finally {
         setIsLoading(false);
       }
@@ -78,10 +78,10 @@ export default function KotPage() {
       setKots((prev) =>
         prev.map((kot) => (kot.id === id ? { ...kot, ...response.data } : kot)),
       );
-      toast.success(`KOT ${response.data.kotNumber} updated to ${newStatus}`);
+      toast.success(`KOT ${response.data.kotNumber} atualizado para ${newStatus}`);
     } catch (error) {
       console.error("[KOT_STATUS_UPDATE]", error);
-      toast.error("Failed to update KOT status");
+      toast.error("Falha ao atualizar status do KOT");
     } finally {
       setUpdatingId(null);
     }
@@ -97,15 +97,15 @@ export default function KotPage() {
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
                   <ChefHat className="h-3.5 w-3.5" />
-                  Bhukkad Kitchen Rail
+                  Trilho da Cozinha Bhukkad
                 </div>
                 <div>
                   <h1 className="brand-display text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
-                  Kitchen Display System
+                  Sistema de Display da Cozinha
                   </h1>
                   <p className="mt-2 max-w-3xl text-sm leading-7 text-text-secondary sm:text-base">
-                    Manage active orders and kitchen tickets with the same crisp contrast and
-                    calmer readability that makes the POS header hold up against rich backgrounds.
+                    Gerencie pedidos ativos e tickets de cozinha com o mesmo contraste nítido e
+                    legibilidade mais calma que faz o cabeçalho do POS se destacar contra fundos ricos.
                   </p>
                 </div>
               </div>
@@ -113,7 +113,7 @@ export default function KotPage() {
               <div className="relative w-full md:w-72">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <Input
-                  placeholder="Search KOTs..."
+                  placeholder="Buscar KOTs..."
                   className="pl-9 border-border/70 bg-background/90 shadow-[var(--shadow-elevation-1)]"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -123,27 +123,27 @@ export default function KotPage() {
 
             <div className="app-panel-subtle scrollbar-hide flex items-center gap-2 overflow-x-auto rounded-[var(--radius-xl)] p-3">
               <StatusTab
-                label="All Tickets"
+                label="Todos Tickets"
                 count={kots.length}
                 active={filter === "all"}
                 onClick={() => setFilter("all")}
               />
               <StatusTab
-                label="Pending"
+                label="Pendente"
                 count={kots.filter((k) => k.status === "pending").length}
                 active={filter === "pending"}
                 onClick={() => setFilter("pending")}
                 color="bg-warning"
               />
               <StatusTab
-                label="Preparing"
+                label="Preparando"
                 count={kots.filter((k) => k.status === "preparing").length}
                 active={filter === "preparing"}
                 onClick={() => setFilter("preparing")}
                 color="bg-primary"
               />
               <StatusTab
-                label="Ready"
+                label="Pronto"
                 count={kots.filter((k) => k.status === "ready").length}
                 active={filter === "ready"}
                 onClick={() => setFilter("ready")}
@@ -208,7 +208,7 @@ export default function KotPage() {
                           {formatDistanceToNow(new Date(kot.createdAt))} ago
                         </div>
                         <div className="text-xs font-bold uppercase tracking-wider">
-                          {kot.table?.name || "Takeaway"}
+                          {kot.table?.name || "Retirada"}
                         </div>
                       </div>
                     </CardHeader>
@@ -216,7 +216,7 @@ export default function KotPage() {
                     <CardContent className="flex-1 bg-card p-4">
                       <div className="space-y-3">
                         {kot.items.map((item, index) => {
-                          const itemName = item.name ?? item.itemName ?? "Unnamed item";
+                          const itemName = item.name ?? item.itemName ?? "Item sem nome";
                           const itemNote = item.notes ?? item.itemNote;
 
                           return (
@@ -227,7 +227,7 @@ export default function KotPage() {
                                   <p className="text-sm font-bold leading-tight text-text-primary">{itemName}</p>
                                   {itemNote && (
                                     <p className="mt-0.5 text-[10px] font-bold uppercase text-error">
-                                      Note: {itemNote}
+                                        Obs: {itemNote}
                                     </p>
                                   )}
                                 </div>
@@ -250,7 +250,7 @@ export default function KotPage() {
                           ) : (
                             <ChefHat className="w-3.5 h-3.5 mr-2" />
                           )}
-                          Prepare
+                          Preparar
                         </Button>
                       )}
                       {kot.status === "preparing" && (
@@ -264,7 +264,7 @@ export default function KotPage() {
                           ) : (
                             <CheckCircle2 className="w-3.5 h-3.5 mr-2" />
                           )}
-                          Ready
+                          Pronto
                         </Button>
                       )}
                       {kot.status === "ready" && (
@@ -277,7 +277,7 @@ export default function KotPage() {
                           {updatingId === kot.id ? (
                             <Loader2 className="w-3.5 h-3.5 mr-2 animate-spin" />
                           ) : null}
-                          Served
+                          Servido
                         </Button>
                       )}
                     </div>
@@ -291,8 +291,8 @@ export default function KotPage() {
         {!isLoading && filteredKots.length === 0 && (
           <div className="flex h-full flex-col items-center justify-center py-20 text-text-secondary">
             <ChefHat className="w-20 h-20 mb-4 opacity-20" />
-            <p className="font-black text-xl uppercase tracking-widest opacity-40">No Active Tickets</p>
-            <p className="text-sm">Kitchen is all caught up!</p>
+            <p className="font-black text-xl uppercase tracking-widest opacity-40">Nenhum Ticket Ativo</p>
+            <p className="text-sm">Cozinha está em dia!</p>
           </div>
         )}
       </div>

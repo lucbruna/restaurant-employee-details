@@ -177,11 +177,11 @@ export function TicketCard({ order, onStatusChange, onOrderComplete }: TicketCar
           disabled={!allItemsCompleted && !hasPreparingItems}
         >
           {allItemsCompleted ? (
-            <><CheckCircle2 className="w-5 h-5 mr-2" /> Mark Order Ready</>
+            <><CheckCircle2 className="w-5 h-5 mr-2" /> Marcar Pedido Pronto</>
           ) : hasPreparingItems ? (
-            <><Timer className="w-5 h-5 mr-2 animate-pulse" /> Cooking in Progress</>
+            <><Timer className="w-5 h-5 mr-2 animate-pulse" /> Cozinhando em Andamento</>
           ) : (
-            "Waiting to Start"
+            "Aguardando Iniciar"
           )}
         </Button>
       </div>

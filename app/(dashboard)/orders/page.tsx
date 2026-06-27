@@ -39,7 +39,7 @@ export default function OrdersPage() {
       const response = await apiClient.get<OrderHistoryItem[]>("/orders/history");
       setOrders(response.data);
     } catch (error) {
-      const message = getApiErrorMessage(error, "We could not load the latest order ledger.");
+      const message = getApiErrorMessage(error, "Não foi possível carregar o livro de pedidos mais recente.");
       console.error("[ORDERS_PAGE_LOAD]", error);
       setLoadError(message);
       toast.error(message);
@@ -97,25 +97,25 @@ export default function OrdersPage() {
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
                   <Receipt className="h-3.5 w-3.5" />
-                  Bhukkad Service Ledger
+                  Livro de Serviço Bhukkad
                 </div>
                 <div className="space-y-2">
                   <h1 className="brand-display text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
-                    Order history with live revenue clarity
+                    Histórico de pedidos com clareza de receita ao vivo
                   </h1>
                   <p className="max-w-3xl text-sm leading-7 text-text-secondary sm:text-base">
-                    Review settled checks, active tables, and service momentum from one polished
-                    command view built for floor managers and investor walkthroughs alike.
+                    Revise contas liquidadas, mesas ativas e momentum do serviço de uma visão de comando
+                    refinada construída para gerentes de operação e demonstrações para investidores.
                   </p>
                 </div>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                <SummaryTile label="Orders" value={statusSummary.totalOrders.toString()} />
-                <SummaryTile label="Settled" value={statusSummary.paidOrders.toString()} />
-                <SummaryTile label="Active Checks" value={statusSummary.activeOrders.toString()} />
+                <SummaryTile label="Pedidos" value={statusSummary.totalOrders.toString()} />
+                <SummaryTile label="Liquidados" value={statusSummary.paidOrders.toString()} />
+                <SummaryTile label="Contas Ativas" value={statusSummary.activeOrders.toString()} />
                 <SummaryTile
-                  label="Settled Revenue"
+                  label="Receita Liquidada"
                   value={formatCurrency(statusSummary.settledRevenue)}
                 />
               </div>
@@ -125,7 +125,7 @@ export default function OrdersPage() {
               <div className="relative w-full lg:max-w-md">
                 <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
                 <Input
-                  placeholder="Search order, table, order type, or customer..."
+                  placeholder="Buscar pedido, mesa, tipo de pedido ou cliente..."
                   className="h-12 rounded-[var(--radius-large)] border-border/70 bg-background pl-11 text-sm font-medium"
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
@@ -134,19 +134,19 @@ export default function OrdersPage() {
 
               <div className="flex flex-wrap items-center gap-2">
                 <FilterChip
-                  label="All"
+                  label="Todos"
                   active={statusFilter === "all"}
                   count={statusSummary.totalOrders}
                   onClick={() => setStatusFilter("all")}
                 />
                 <FilterChip
-                  label="Paid"
+                  label="Pago"
                   active={statusFilter === "paid"}
                   count={statusSummary.paidOrders}
                   onClick={() => setStatusFilter("paid")}
                 />
                 <FilterChip
-                  label="Active"
+                  label="Ativo"
                   active={statusFilter === "active"}
                   count={statusSummary.activeOrders}
                   onClick={() => setStatusFilter("active")}
@@ -158,12 +158,12 @@ export default function OrdersPage() {
 
         {loadError && orders.length === 0 ? (
           <StatePanel
-            eyebrow="Orders bootstrap interrupted"
-            title="The order ledger did not come online"
-            description={`${loadError} You can retry safely without leaving the dashboard.`}
+            eyebrow="Inicialização de pedidos interrompida"
+            title="O livro de pedidos não ficou online"
+            description={`${loadError} Você pode tentar novamente com segurança sem sair do painel.`}
             tone="error"
-            primaryAction={{ label: "Retry order sync", onClick: () => void loadOrders() }}
-            secondaryAction={{ label: "Go to dashboard", href: "/dashboard", variant: "outline" }}
+            primaryAction={{ label: "Tentar sincronização de pedidos", onClick: () => void loadOrders() }}
+            secondaryAction={{ label: "Ir ao painel", href: "/dashboard", variant: "outline" }}
           />
         ) : null}
 
@@ -217,9 +217,9 @@ export default function OrdersPage() {
                             >
                               {order.orderType.replace("_", " ")}
                             </Badge>
-                            {order.paymentStatus === "paid" ? (
+                              {order.paymentStatus === "paid" ? (
                               <Badge className="rounded-full bg-success text-success-foreground">
-                                Payment settled
+                                Pagamento liquidado
                               </Badge>
                             ) : null}
                           </div>
@@ -231,29 +231,29 @@ export default function OrdersPage() {
                             />
                             <MetaChip
                               icon={<User className="h-4 w-4" />}
-                              label={order.customerName || "Walk-in guest"}
+                              label={order.customerName || "Cliente sem reserva"}
                             />
                             <MetaChip
                               icon={<Table2 className="h-4 w-4" />}
-                              label={order.table?.name || "No table assigned"}
+                              label={order.table?.name || "Nenhuma mesa atribuída"}
                             />
                             <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
-                              {order.items.length} items
+                              {order.items.length} itens
                             </span>
                           </div>
                         </div>
 
                         <div className="flex min-w-[180px] flex-col items-start gap-2 rounded-[var(--radius-large)] border border-border/70 bg-muted/40 px-4 py-3 text-left md:items-end md:text-right">
                           <p className="text-[11px] font-black uppercase tracking-[0.24em] text-text-muted">
-                            Order total
+                            Total do pedido
                           </p>
                           <p className="text-2xl font-semibold tracking-tight text-text-primary">
                             {formatCurrency(order.totalAmount)}
                           </p>
                           <p className="text-xs font-semibold text-text-secondary">
                             {order.paymentStatus === "paid"
-                              ? "Captured and settled"
-                              : "Awaiting settlement"}
+                              ? "Capturado e liquidado"
+                              : "Aguardando liquidação"}
                           </p>
                         </div>
                       </div>
@@ -263,12 +263,12 @@ export default function OrdersPage() {
               </section>
             ) : (
               <StatePanel
-                eyebrow="No matching checks"
-                title="Nothing matches the current filter set"
-                description="Adjust the search term or switch the ledger segment to bring more service activity into view."
+                eyebrow="Nenhuma conta correspondente"
+                title="Nada corresponde ao filtro atual"
+                description="Ajuste o termo de busca ou altere o segmento do livro para trazer mais atividades de serviço à vista."
                 tone="empty"
                 primaryAction={{
-                  label: "Reset filters",
+                  label: "Redefinir filtros",
                   onClick: () => {
                     setSearchQuery("");
                     setStatusFilter("all");

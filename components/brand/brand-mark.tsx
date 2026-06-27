@@ -28,15 +28,15 @@ export function BrandMark({
           <div className="flex items-end gap-2 leading-none">
             <span className="brand-script text-[1.6rem] font-extrabold text-foreground">भुक्कड़</span>
             <span className="brand-display pb-0.5 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-              Bhukkad
+              Restaurante
             </span>
           </div>
           <div className="mt-1 text-[10px] font-black uppercase tracking-[0.24em] text-muted-foreground">
-            Restaurant OS
+            Sistema do Restaurante
           </div>
           {withTagline && (
             <p className="mt-2 max-w-xs text-xs font-medium leading-relaxed text-muted-foreground">
-              Expressive restaurant operations for India&apos;s dining rooms, rush-hour kitchens, and service teams.
+              Operações expressivas para restaurantes, cozinhas movimentadas e equipes de serviço.
             </p>
           )}
         </div>

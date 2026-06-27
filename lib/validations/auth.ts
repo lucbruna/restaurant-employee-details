@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 export const loginSchema = z.object({
-  email: z.string().email('Invalid email address').optional(),
-  password: z.string().min(6, 'Password must be at least 6 characters').optional(),
-  pin: z.string().length(4, 'PIN must be 4 digits').optional(),
+  email: z.string().email('Endereço de e-mail inválido').optional(),
+  password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres').optional(),
+  pin: z.string().length(4, 'O PIN deve ter 4 dígitos').optional(),
 }).refine(data => (data.email && data.password) || data.pin, {
-  message: 'Either email/password or PIN must be provided',
+  message: 'Informe e-mail/senha ou PIN',
   path: ['email'],
 });
 

@@ -67,7 +67,7 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
             <div className="p-6 border-b border-border bg-muted/30 flex justify-between items-center">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <Tag className="w-5 h-5 text-primary" />
-                Apply Discount
+                Aplicar Desconto
               </h2>
               <button 
                 onClick={onClose}
@@ -86,7 +86,7 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
                   }`}
                   onClick={() => setType("percentage")}
                 >
-                  <Percent className="w-4 h-4" /> Percentage
+                  <Percent className="w-4 h-4" /> Percentual
                 </button>
                 <button
                   className={`flex-1 flex items-center justify-center gap-2 py-2 text-sm font-medium rounded-md transition-all ${
@@ -94,13 +94,13 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
                   }`}
                   onClick={() => setType("fixed")}
                 >
-                  <IndianRupee className="w-4 h-4" /> Fixed Amount
+                  <IndianRupee className="w-4 h-4" /> Valor Fixo
                 </button>
               </div>
 
               {/* Value Input */}
               <div className="space-y-2">
-                <Label htmlFor="discount-value">Discount Value</Label>
+                <Label htmlFor="discount-value">Valor do Desconto</Label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                     {type === "percentage" ? <Percent className="w-5 h-5" /> : <IndianRupee className="w-5 h-5" />}
@@ -111,7 +111,7 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     className="pl-10 h-12 text-lg font-medium"
-                    placeholder={type === "percentage" ? "e.g. 10" : "e.g. 150"}
+                    placeholder={type === "percentage" ? "ex. 10" : "ex. 150"}
                     autoFocus
                   />
                 </div>
@@ -119,12 +119,12 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
 
               {/* Reason Input */}
               <div className="space-y-2">
-                <Label htmlFor="discount-reason">Reason (Optional)</Label>
+                <Label htmlFor="discount-reason">Motivo (Opcional)</Label>
                 <Input
                   id="discount-reason"
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
-                  placeholder="e.g. Staff Discount, Loyalty"
+                  placeholder="ex. Desconto de Funcionário, Fidelidade"
                 />
               </div>
 
@@ -151,11 +151,11 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm text-success font-medium">
-                  <span>Discount Amount</span>
+                  <span>Valor do Desconto</span>
                   <span>-{formatCurrency(discountAmount)}</span>
                 </div>
                 <div className="pt-2 border-t border-primary/20 flex justify-between font-bold text-lg">
-                  <span>New Subtotal</span>
+                  <span>Novo Subtotal</span>
                   <span>{formatCurrency(newTotal)}</span>
                 </div>
               </div>
@@ -167,7 +167,7 @@ export function DiscountModal({ isOpen, onClose, subtotal, onApply }: DiscountMo
                 onClick={handleApply}
                 disabled={!value || parseFloat(value) <= 0}
               >
-                Apply Discount
+                Aplicar Desconto
               </Button>
             </div>
           </motion.div>

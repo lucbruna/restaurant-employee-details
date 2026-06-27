@@ -74,7 +74,7 @@ function getRequiredEnv(name: string) {
   const value = process.env[name]?.trim();
 
   if (!value) {
-    throw new PaymentServiceError(500, `Missing required payment configuration: ${name}`);
+    throw new PaymentServiceError(500, `Configuração de pagamento obrigatória ausente: ${name}`);
   }
 
   return value;

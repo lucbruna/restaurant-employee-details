@@ -39,7 +39,7 @@ export function TableFloorPlan({ tables, sections, onSelect }: TableFloorPlanPro
   return (
     <div className="flex flex-col h-full">
       <div className="p-4 border-b border-border">
-        <h2 className="font-semibold text-lg mb-3">Floor Plan</h2>
+        <h2 className="font-semibold text-lg mb-3">Planta Baixa</h2>
         <ScrollArea className="w-full whitespace-nowrap pb-2">
           <div className="flex space-x-2">
             {sections.map(sec => (
@@ -60,10 +60,10 @@ export function TableFloorPlan({ tables, sections, onSelect }: TableFloorPlanPro
         </ScrollArea>
         
         <div className="flex items-center gap-4 mt-4 px-1 overflow-x-auto scrollbar-hide">
-          <StatusLegend color="bg-surface border-success/30" label="Available" />
-          <StatusLegend color="bg-warning/10 border-warning/40" label="Occupied" />
-          <StatusLegend color="bg-info/10 border-info/40" label="Reserved" />
-          <StatusLegend color="bg-destructive/10 border-destructive/40" label="Dirty" />
+          <StatusLegend color="bg-surface border-success/30" label="Disponível" />
+          <StatusLegend color="bg-warning/10 border-warning/40" label="Ocupada" />
+          <StatusLegend color="bg-info/10 border-info/40" label="Reservada" />
+          <StatusLegend color="bg-destructive/10 border-destructive/40" label="Suja" />
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export function TableFloorPlan({ tables, sections, onSelect }: TableFloorPlanPro
           }}
         >
           <Plus className="w-4 h-4 mr-2" />
-          New Direct Order
+          Novo Pedido Direto
         </Button>
       </div>
     </div>

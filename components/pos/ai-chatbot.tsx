@@ -28,7 +28,7 @@ export function AIChatbot({
 }: AIChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hi! I'm your SpiceOS assistant. How can I help you with your restaurant operations today?" }
+    { role: "assistant", content: "Olá! Sou seu assistente SpiceOS. Como posso ajudar com suas operações de restaurante hoje?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +54,7 @@ export function AIChatbot({
         prompt: userMessage,
       });
       const response = data?.response as string | undefined;
-      setMessages(prev => [...prev, { role: "assistant", content: response || "I'm sorry, I couldn't process that." }]);
+      setMessages(prev => [...prev, { role: "assistant", content: response || "Desculpe, não consegui processar isso." }]);
     } catch (error) {
       setMessages(prev => [
         ...prev,
@@ -62,7 +62,7 @@ export function AIChatbot({
           role: "assistant",
           content: getApiErrorMessage(
             error,
-            "I couldn't reach the AI assistant just now. Please try again in a moment."
+            "Não consegui acessar o assistente de IA agora. Por favor, tente novamente em um momento."
           ),
         },
       ]);
@@ -88,11 +88,11 @@ export function AIChatbot({
           !inline && (isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"),
           triggerClassName
         )}
-        aria-label="Open AI assistant"
-        title="Open AI assistant"
+        aria-label="Abrir assistente de IA"
+        title="Abrir assistente de IA"
       >
         <Sparkles className="w-6 h-6" />
-        {inline && !compact ? <span className="ml-2">AI Assistant</span> : null}
+        {inline && !compact ? <span className="ml-2">Assistente de IA</span> : null}
       </Button>
 
       {/* Chat Window */}
@@ -111,8 +111,8 @@ export function AIChatbot({
                     <Sparkles className="w-5 h-5" />
                   </div>
                   <div>
-                    <CardTitle className="text-sm font-bold">SpiceOS AI Assistant</CardTitle>
-                    <p className="text-[10px] text-primary-foreground/80">Menu, service, and ops help</p>
+                    <CardTitle className="text-sm font-bold">Assistente de IA SpiceOS</CardTitle>
+                    <p className="text-[10px] text-primary-foreground/80">Ajuda com cardápio, serviço e operações</p>
                   </div>
                 </div>
                 <Button 
@@ -169,7 +169,7 @@ export function AIChatbot({
                     className="flex gap-2"
                   >
                     <Input 
-                      placeholder="Ask anything..." 
+                      placeholder="Pergunte qualquer coisa..." 
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       className="rounded-xl border-border focus-visible:ring-primary"

@@ -76,12 +76,12 @@ export function ReservationModal({
         : null;
 
     if (!formData.customerName.trim() || !formData.phone.trim() || !formData.date || !formData.time) {
-      toast.error("Guest name, phone, date, and time are required.");
+      toast.error("Nome do cliente, telefone, data e hora são obrigatórios.");
       return;
     }
 
     if (!Number.isFinite(formData.guests) || formData.guests < 1) {
-      toast.error("Reservation must include at least one guest.");
+      toast.error("A reserva deve incluir pelo menos um cliente.");
       return;
     }
 
@@ -99,8 +99,8 @@ export function ReservationModal({
 
       toast.success(
         normalizedTableId
-          ? "Table reserved successfully."
-          : "Reservation added successfully.",
+          ? "Mesa reservada com sucesso."
+          : "Reserva adicionada com sucesso.",
       );
       onSuccess?.();
       onClose();
@@ -108,7 +108,7 @@ export function ReservationModal({
       toast.error(
         getApiErrorMessage(
           error,
-          "Failed to save the reservation. Please try again.",
+          "Falha ao salvar a reserva. Por favor, tente novamente.",
         ),
       );
     } finally {
@@ -128,22 +128,22 @@ export function ReservationModal({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {tableName ? `Reserve Table ${tableName}` : "Add Reservation"}
+            {tableName ? `Reservar Mesa ${tableName}` : "Adicionar Reserva"}
           </DialogTitle>
           <DialogDescription>
-            Capture the guest details now so the front-of-house team can seat them smoothly later.
+            Capture os detalhes do cliente agora para que a equipe de salão possa acomodá-los sem problemas mais tarde.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label>Customer Name</Label>
+            <Label>Nome do Cliente</Label>
             <Input 
               value={formData.customerName} 
               onChange={(e) => setFormData({...formData, customerName: e.target.value})}
             />
           </div>
           <div className="space-y-2">
-            <Label>Phone Number</Label>
+            <Label>Número de Telefone</Label>
             <Input
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -152,16 +152,16 @@ export function ReservationModal({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Date</Label>
+              <Label>Data</Label>
               <Input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} />
             </div>
             <div className="space-y-2">
-              <Label>Time</Label>
+              <Label>Horário</Label>
               <Input type="time" value={formData.time} onChange={(e) => setFormData({...formData, time: e.target.value})} />
             </div>
           </div>
           <div className="space-y-2">
-            <Label>Number of Guests</Label>
+            <Label>Número de Convidados</Label>
             <Input
               type="number"
               min={1}
@@ -175,17 +175,17 @@ export function ReservationModal({
             />
           </div>
           <div className="space-y-2">
-            <Label>Special Notes</Label>
+            <Label>Observações Especiais</Label>
             <Textarea value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})} />
           </div>
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Cancelar
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            {tableName ? "Reserve" : "Create Reservation"}
+            {tableName ? "Reservar" : "Criar Reserva"}
           </Button>
         </DialogFooter>
       </DialogContent>

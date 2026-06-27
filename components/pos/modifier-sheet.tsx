@@ -179,12 +179,12 @@ function ModifierSheetContent({ item, onClose }: { item: MenuItem; onClose: () =
                     {group.name}
                     {isRequired && !isSatisfied ? (
                       <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-destructive">
-                        Required
+                        Obrigatório
                       </span>
                     ) : null}
                   </h3>
                   <span className="text-sm text-muted-foreground">
-                    {isMultiple ? `Choose up to ${group.maxSelections || "any"}` : "Choose 1"}
+                    {isMultiple ? `Escolha até ${group.maxSelections || "qualquer"}` : "Escolha 1"}
                   </span>
                 </div>
 
@@ -241,11 +241,11 @@ function ModifierSheetContent({ item, onClose }: { item: MenuItem; onClose: () =
           })}
 
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold">Special Instructions</h3>
+            <h3 className="text-lg font-semibold">Instruções Especiais</h3>
             <textarea
               value={notes}
               onChange={event => setNotes(event.target.value)}
-              placeholder="e.g. No onions, extra spicy..."
+              placeholder="ex. Sem cebola, extra picante..."
               className="min-h-[100px] w-full resize-none rounded-xl border-2 border-border bg-surface p-4 transition-colors focus:border-primary/50 focus:outline-none"
             />
           </div>
@@ -253,7 +253,7 @@ function ModifierSheetContent({ item, onClose }: { item: MenuItem; onClose: () =
 
         <div className="space-y-4 border-t border-border bg-surface p-6">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-muted-foreground">Quantity</span>
+            <span className="font-semibold text-muted-foreground">Quantidade</span>
             <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-1">
               <button
                 onClick={() => setQuantity(current => Math.max(1, current - 1))}
@@ -272,7 +272,7 @@ function ModifierSheetContent({ item, onClose }: { item: MenuItem; onClose: () =
           </div>
 
           <Button size="lg" className="h-14 w-full text-lg font-bold" onClick={handleAddToCart} disabled={!isSelectionValid()}>
-            Add to Order • {formatCurrency(calculateTotal())}
+            Adicionar ao Pedido • {formatCurrency(calculateTotal())}
           </Button>
         </div>
       </motion.div>

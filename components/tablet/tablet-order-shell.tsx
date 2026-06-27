@@ -91,36 +91,36 @@ type TabletCopy = {
 
 const COPY: Record<SupportedTabletCopyLanguage, TabletCopy> = {
   en: {
-    welcomeEyebrow: "Bhukkad Table Ordering",
-    welcomeTitle: "Order directly from your table",
-    welcomeSubtitle: "Browse the menu, customize dishes, and send your order straight to the kitchen.",
-    searchPlaceholder: "Search for dishes, drinks, and combos",
-    allCategories: "All",
-    orderSummary: "Order summary",
-    yourTable: "Your table",
-    guests: "Guests",
-    emptyCartTitle: "Your cart is empty",
-    emptyCartBody: "Add a few dishes and they will appear here for final review.",
-    specialInstructions: "Special instructions",
-    specialInstructionsPlaceholder: "Anything the floor team should know about this order?",
-    taxesNotice: "Taxes and outlet charges are applied at billing for the most accurate final total.",
-    placeOrder: "Place order",
-    itemNotes: "Notes for this dish",
-    itemNotesPlaceholder: "No onion, extra spicy, sauce on the side...",
-    chooseVariant: "Choose a size or portion",
-    customizeDish: "Customize your dish",
-    addToCart: "Add to cart",
-    required: "Required",
-    chooseUpTo: "Choose up to",
-    chooseOne: "Choose one",
-    language: "Language",
-    orderPlaced: "Your order has been sent to the kitchen.",
-    orderFailed: "We could not place the order right now.",
+    welcomeEyebrow: "Pedidos de Mesa Restaurante",
+    welcomeTitle: "Peça diretamente da sua mesa",
+    welcomeSubtitle: "Explore o cardápio, personalize os pratos e envie seu pedido direto para a cozinha.",
+    searchPlaceholder: "Busque por pratos, bebidas e combos",
+    allCategories: "Todos",
+    orderSummary: "Resumo do pedido",
+    yourTable: "Sua mesa",
+    guests: "Clientes",
+    emptyCartTitle: "Seu carrinho está vazio",
+    emptyCartBody: "Adicione alguns pratos e eles aparecerão aqui para revisão final.",
+    specialInstructions: "Instruções especiais",
+    specialInstructionsPlaceholder: "Algo que a equipe de salão deve saber sobre este pedido?",
+    taxesNotice: "Impostos e taxas são aplicados no faturamento para o total final mais preciso.",
+    placeOrder: "Fazer pedido",
+    itemNotes: "Observações para este prato",
+    itemNotesPlaceholder: "Sem cebola, extra picante, molho à parte...",
+    chooseVariant: "Escolha um tamanho ou porção",
+    customizeDish: "Personalize seu prato",
+    addToCart: "Adicionar ao carrinho",
+    required: "Obrigatório",
+    chooseUpTo: "Escolha até",
+    chooseOne: "Escolha um",
+    language: "Idioma",
+    orderPlaced: "Seu pedido foi enviado para a cozinha.",
+    orderFailed: "Não foi possível fazer o pedido agora.",
     subtotal: "Subtotal",
-    quantity: "Quantity",
-    startOrdering: "Start your table order",
-    unavailable: "This ordering session is unavailable right now.",
-    retry: "Retry",
+    quantity: "Quantidade",
+    startOrdering: "Inicie seu pedido de mesa",
+    unavailable: "Esta sessão de pedidos não está disponível no momento.",
+    retry: "Tentar novamente",
   },
   hi: {
     welcomeEyebrow: "भुक्कड़ टेबल ऑर्डरिंग",
@@ -191,9 +191,9 @@ function foodTypeLabel(foodType: TabletMenuItem["foodType"], language: TabletLan
   const labels: Record<SupportedTabletCopyLanguage, Record<TabletMenuItem["foodType"], string>> = {
     en: {
       veg: "Veg",
-      non_veg: "Non-Veg",
-      vegan: "Vegan",
-      egg: "Egg",
+      non_veg: "Não Veg",
+      vegan: "Vegano",
+      egg: "Ovo",
     },
     hi: {
       veg: "शाकाहारी",
@@ -486,7 +486,7 @@ export function TabletOrderShell({ tableId }: TabletOrderShellProps) {
           tone="loading"
           eyebrow={COPY.en.welcomeEyebrow}
           title={COPY.en.startOrdering}
-          description="We’re preparing the live table menu, pricing, and outlet settings for this ordering session."
+          description="Estamos preparando o cardápio ao vivo, preços e configurações do restaurante para esta sessão de pedidos."
           className="w-full max-w-3xl"
         />
       </div>
@@ -502,7 +502,7 @@ export function TabletOrderShell({ tableId }: TabletOrderShellProps) {
           title={copy.unavailable}
           description={
             error ??
-            "Please ask a team member for help, or retry in a moment if the table was just enabled for ordering."
+            "Pe\u00e7a ajuda a um membro da equipe ou tente novamente em um momento se a mesa acabou de ser ativada para pedidos."
           }
           className="w-full max-w-3xl"
           primaryAction={{
@@ -667,7 +667,7 @@ export function TabletOrderShell({ tableId }: TabletOrderShellProps) {
                       {category.name}
                     </h2>
                     <p className="text-sm font-medium text-slate-500">
-                      {category.items.length} items available
+                      {category.items.length} itens disponíveis
                     </p>
                   </div>
                 </div>
@@ -700,7 +700,7 @@ export function TabletOrderShell({ tableId }: TabletOrderShellProps) {
                             </div>
                             {item.isBestseller || item.isChefsSpecial ? (
                               <div className="absolute right-5 top-5 rounded-full border border-white/80 bg-white/80 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm">
-                                {item.isChefsSpecial ? "Chef's pick" : "Popular"}
+                                {item.isChefsSpecial ? "Escolha do Chef" : "Popular"}
                               </div>
                             ) : null}
                           </div>
@@ -732,12 +732,12 @@ export function TabletOrderShell({ tableId }: TabletOrderShellProps) {
                               <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-500">
                                 {item.variants && item.variants.length > 0 ? (
                                   <span className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1">
-                                    {item.variants.length} sizes
+                                    {item.variants.length} tamanhos
                                   </span>
                                 ) : null}
                                 {item.modifierGroups && item.modifierGroups.length > 0 ? (
                                   <span className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1">
-                                    Customizable
+                                    Personalizável
                                   </span>
                                 ) : null}
                               </div>
@@ -757,7 +757,7 @@ export function TabletOrderShell({ tableId }: TabletOrderShellProps) {
             {visibleCategories.length === 0 ? (
               <div className="rounded-[32px] border border-dashed border-slate-300 bg-white px-6 py-12 text-center shadow-sm">
                 <p className="text-sm font-semibold text-slate-500">
-                  No matching dishes were found for this search.
+                  Nenhum prato correspondente foi encontrado para esta busca.
                 </p>
               </div>
             ) : null}

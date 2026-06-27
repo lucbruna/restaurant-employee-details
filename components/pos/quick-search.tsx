@@ -72,7 +72,7 @@ export function QuickSearch({ items }: QuickSearchProps) {
         <Input
           ref={inputRef}
           type="text"
-          placeholder="Search items (Cmd+K)..."
+          placeholder="Buscar itens (Cmd+K)..."
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
@@ -120,7 +120,7 @@ export function QuickSearch({ items }: QuickSearchProps) {
             </ul>
           ) : (
             <div className="p-4 text-center text-muted-foreground text-sm">
-              No items found matching &quot;{query}&quot;
+              Nenhum item encontrado para &quot;{query}&quot;
             </div>
           )}
         </div>

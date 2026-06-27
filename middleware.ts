@@ -21,7 +21,7 @@ const authMiddleware = NextAuth({
     const message =
       error instanceof Error
         ? error.message
-        : 'AUTH_SECRET must be configured before serving authenticated pages.';
+        : 'AUTH_SECRET deve ser configurada antes de servir páginas autenticadas.';
 
     return new NextResponse(message, { status: 500 });
   }

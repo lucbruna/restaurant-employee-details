@@ -79,9 +79,9 @@ export function Header() {
           <DropdownMenuContent className="w-56 border-border/70 bg-popover/95 backdrop-blur" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{user?.name || 'User'}</p>
+                <p className="text-sm font-medium leading-none">{user?.name || 'Usuário'}</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {user?.email || 'No email'}
+                  {user?.email || 'Sem email'}
                 </p>
               </div>
             </DropdownMenuLabel>

@@ -84,10 +84,10 @@ export default function ReportsPage() {
       const response = await apiClient.get<ReportsSummary>("/reports/summary");
       setSummary(response.data);
       if (showToast) {
-        toast.success("Reports refreshed");
+        toast.success("Relatórios atualizados");
       }
     } catch {
-      toast.error("Failed to load reports");
+      toast.error("Falha ao carregar relatórios");
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -112,13 +112,13 @@ export default function ReportsPage() {
         <Card className="max-w-md border-border/70 bg-card/90">
           <CardContent className="space-y-4 p-8 text-center">
             <h2 className="brand-display text-2xl font-semibold text-foreground">
-              Reports unavailable
+              Relatórios indisponíveis
             </h2>
             <p className="text-sm font-medium text-muted-foreground">
-              We couldn&apos;t load the latest analytics summary.
+              Não foi possível carregar o resumo analítico mais recente.
             </p>
             <Button onClick={() => void loadReports()}>
-              Retry
+              Tentar novamente
             </Button>
           </CardContent>
         </Card>
@@ -135,7 +135,7 @@ export default function ReportsPage() {
   const weeklyOrders = summary.weeklyPerformance.reduce((sum, day) => sum + day.orders, 0);
   const stats: StatCardProps[] = [
     {
-      title: "Total Sales",
+      title: "Vendas Totais",
       value: formatCurrency(summary.stats.totalSales.value),
       icon: <IndianRupee className="h-5 w-5" />,
       trend: formatTrend(summary.stats.totalSales.changePct),
@@ -143,7 +143,7 @@ export default function ReportsPage() {
       iconClassName: "bg-primary text-primary-foreground",
     },
     {
-      title: "Total Orders",
+      title: "Total de Pedidos",
       value: summary.stats.totalOrders.value.toString(),
       icon: <ShoppingBag className="h-5 w-5" />,
       trend: formatTrend(summary.stats.totalOrders.changePct),
@@ -151,7 +151,7 @@ export default function ReportsPage() {
       iconClassName: "bg-secondary text-secondary-foreground",
     },
     {
-      title: "Average Order Value",
+      title: "Valor Médio do Pedido",
       value: formatCurrency(summary.stats.averageOrderValue.value),
       icon: <TrendingUp className="h-5 w-5" />,
       trend: formatTrend(summary.stats.averageOrderValue.changePct),
@@ -159,7 +159,7 @@ export default function ReportsPage() {
       iconClassName: "bg-tertiary text-tertiary-foreground",
     },
     {
-      title: "Active Customers",
+      title: "Clientes Ativos",
       value: summary.stats.activeCustomers.value.toString(),
       icon: <Users className="h-5 w-5" />,
       trend: formatTrend(summary.stats.activeCustomers.changePct),
@@ -175,26 +175,26 @@ export default function ReportsPage() {
           <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-end md:justify-between md:p-8">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
-                Bhukkad Weekly Pulse
+                Pulso Semanal Bhukkad
               </div>
               <div className="space-y-2">
                 <h1 className="brand-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-                  Analytics &amp; Reports
+                  Análises e Relatórios
                 </h1>
                 <p className="max-w-2xl text-sm font-medium leading-relaxed text-muted-foreground md:text-base">
-                  Weekly service summary ending on {formatServiceDate(summary.serviceDate)} across
-                  sales, order flow, and customer movement.
+                  Resumo semanal de serviço terminando em {formatServiceDate(summary.serviceDate)} em
+                  vendas, fluxo de pedidos e movimento de clientes.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 text-sm font-medium text-muted-foreground">
                 <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                  Peak day:{" "}
-                  <span className="font-semibold text-foreground">
-                    {bestDay ? bestDay.name : "Awaiting data"}
-                  </span>
+                  Dia de pico:{" "}
+                    <span className="font-semibold text-foreground">
+                      {bestDay ? bestDay.name : "Aguardando dados"}
+                    </span>
                 </div>
                 <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                  Weekly orders: <span className="font-semibold text-foreground">{weeklyOrders}</span>
+                  Pedidos semanais: <span className="font-semibold text-foreground">{weeklyOrders}</span>
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function ReportsPage() {
                 ) : (
                   <RefreshCw className="mr-2 h-4 w-4" />
                 )}
-                Refresh Snapshot
+                Atualizar Instantâneo
               </Button>
             </div>
           </CardContent>
@@ -226,13 +226,13 @@ export default function ReportsPage() {
         <Card className="border-border/70 bg-card/95">
           <CardHeader className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
-              <CardTitle className="brand-display text-3xl font-semibold">Weekly Sales</CardTitle>
+              <CardTitle className="brand-display text-3xl font-semibold">Vendas Semanais</CardTitle>
               <CardDescription className="text-sm font-medium">
-                Revenue cadence across the last seven service days.
+                Cadência de receita nos últimos sete dias de serviço.
               </CardDescription>
             </div>
             <div className="text-[11px] font-black uppercase tracking-[0.24em] text-muted-foreground">
-              Revenue heat
+              Calor da receita
             </div>
           </CardHeader>
           <CardContent>
@@ -288,9 +288,9 @@ export default function ReportsPage() {
 
         <Card className="border-border/70 bg-card/95">
           <CardHeader>
-            <CardTitle className="brand-display text-3xl font-semibold">Orders Trend</CardTitle>
+            <CardTitle className="brand-display text-3xl font-semibold">Tendência de Pedidos</CardTitle>
             <CardDescription className="text-sm font-medium">
-              Consistency of guest demand through the same weekly window.
+              Consistência da demanda dos clientes na mesma janela semanal.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -353,31 +353,31 @@ export default function ReportsPage() {
         <Card className="border-border/70 bg-card/95 lg:col-span-2">
           <CardHeader>
             <CardTitle className="brand-display text-3xl font-semibold">
-              Performance Notes
+              Notas de Desempenho
             </CardTitle>
             <CardDescription className="text-sm font-medium">
-              Quick reads for the operator standing on the floor.
+              Leituras rápidas para o operador em campo.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-3">
             <SignalCard
-              label="Peak revenue day"
-              value={bestDay ? bestDay.name : "Awaiting data"}
+              label="Dia de pico de receita"
+              value={bestDay ? bestDay.name : "Aguardando dados"}
               detail={
                 bestDay
-                  ? `${formatCurrency(bestDay.sales)} from ${bestDay.orders} billed orders`
-                  : "Sales data will populate after billing starts"
+                  ? `${formatCurrency(bestDay.sales)} de ${bestDay.orders} pedidos faturados`
+                  : "Os dados de vendas serão preenchidos após o início do faturamento"
               }
             />
             <SignalCard
-              label="Guest momentum"
+              label="Momentum de clientes"
               value={formatTrend(summary.stats.activeCustomers.changePct)}
-              detail={`${summary.stats.activeCustomers.value} active customers in the current cycle`}
+              detail={`${summary.stats.activeCustomers.value} clientes ativos no ciclo atual`}
             />
             <SignalCard
-              label="Basket quality"
+              label="Qualidade do carrinho"
               value={formatCurrency(summary.stats.averageOrderValue.value)}
-              detail={`${formatTrend(summary.stats.averageOrderValue.changePct)} against the previous week`}
+              detail={`${formatTrend(summary.stats.averageOrderValue.changePct)} em relação à semana anterior`}
             />
           </CardContent>
         </Card>
@@ -385,21 +385,21 @@ export default function ReportsPage() {
         <Card className="border-border/70 bg-card/95">
           <CardHeader>
             <CardTitle className="brand-display text-3xl font-semibold">
-              Insights Mode
+              Modo de Insights
             </CardTitle>
             <CardDescription className="text-sm font-medium">
-              Bhukkad v2 keeps the signal visible even during a rush.
+              Bhukkad v2 mantém o sinal visível mesmo durante uma correria.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 text-sm font-medium text-muted-foreground">
             <div className="rounded-[var(--radius-medium)] border border-border/70 bg-surface-container-high p-4">
-              Warm revenue colors and rounded surfaces mirror the core Bhukkad service shell.
+              Cores quentes de receita e superfícies arredondadas espelham o shell de serviço principal do Bhukkad.
             </div>
             <div className="rounded-[var(--radius-medium)] border border-border/70 bg-surface-container-high p-4">
-              Charts now use semantic tokens so dark mode and future brand tweaks inherit correctly.
+              Os gráficos agora usam tokens semânticos para que o modo escuro e futuras alterações de marca sejam herdados corretamente.
             </div>
             <div className="rounded-[var(--radius-medium)] border border-border/70 bg-surface-container-high p-4">
-              Operator summaries are written for quick scanning instead of generic analytics chrome.
+              Os resumos do operador são escritos para leitura rápida em vez de cromo analítico genérico.
             </div>
           </CardContent>
         </Card>

@@ -80,10 +80,10 @@ export default function DashboardPage() {
       const response = await apiClient.get<DashboardOverview>("/dashboard/overview");
       setOverview(response.data);
       if (showToast) {
-        toast.success("Dashboard refreshed");
+        toast.success("Painel atualizado");
       }
     } catch {
-      toast.error("Failed to load dashboard data");
+      toast.error("Falha ao carregar dados do painel");
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -108,10 +108,10 @@ export default function DashboardPage() {
         <Card className="max-w-md border-border/70 bg-card/90">
           <CardContent className="space-y-4 p-8 text-center">
             <h2 className="brand-display text-2xl font-semibold text-foreground">
-              Dashboard unavailable
+              Painel indisponível
             </h2>
             <p className="text-sm font-medium text-muted-foreground">
-              We couldn&apos;t load the live outlet summary just now.
+              Não foi possível carregar o resumo do estabelecimento agora.
             </p>
             <Button
               onClick={() => {
@@ -119,7 +119,7 @@ export default function DashboardPage() {
                 void loadOverview();
               }}
             >
-              Try again
+              Tentar novamente
             </Button>
           </CardContent>
         </Card>
@@ -130,7 +130,7 @@ export default function DashboardPage() {
   const peakRevenue = Math.max(...overview.topItems.map((item) => item.revenue), 0);
   const stats = [
     {
-      title: "Today's Sales",
+      title: "Vendas de Hoje",
       value: formatCurrency(overview.stats.sales.value),
       change: formatChange(overview.stats.sales.changePct),
       isUp: overview.stats.sales.changePct >= 0,
@@ -142,7 +142,7 @@ export default function DashboardPage() {
           : "bg-destructive/12 text-destructive",
     },
     {
-      title: "Total Orders",
+      title: "Total de Pedidos",
       value: overview.stats.orders.value.toString(),
       change: formatChange(overview.stats.orders.changePct),
       isUp: overview.stats.orders.changePct >= 0,
@@ -154,7 +154,7 @@ export default function DashboardPage() {
           : "bg-destructive/12 text-destructive",
     },
     {
-      title: "Avg. Order Value",
+      title: "Valor Médio do Pedido",
       value: formatCurrency(overview.stats.averageOrderValue.value),
       change: formatChange(overview.stats.averageOrderValue.changePct),
       isUp: overview.stats.averageOrderValue.changePct >= 0,
@@ -166,7 +166,7 @@ export default function DashboardPage() {
           : "bg-destructive/12 text-destructive",
     },
     {
-      title: "New Customers",
+      title: "Novos Clientes",
       value: overview.stats.newCustomers.value.toString(),
       change: formatChange(overview.stats.newCustomers.changePct),
       isUp: overview.stats.newCustomers.changePct >= 0,
@@ -186,14 +186,14 @@ export default function DashboardPage() {
           <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-end md:justify-between md:p-8">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
-                Bhukkad Service Pulse
+                Pulso de Serviço Bhukkad
               </div>
               <div className="space-y-2">
                 <h1 className="brand-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-                  Outlet Dashboard
+                  Painel do Estabelecimento
                 </h1>
                 <p className="max-w-2xl text-sm font-medium leading-relaxed text-muted-foreground md:text-base">
-                  Live restaurant performance for {formatServiceDate(overview.serviceDate)} across billing, order flow, and guest acquisition.
+                  Desempenho ao vivo do restaurante para {formatServiceDate(overview.serviceDate)} em faturamento, fluxo de pedidos e aquisição de clientes.
                 </p>
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function DashboardPage() {
                 ) : (
                   <RefreshCw className="mr-2 h-4 w-4" />
                 )}
-                Refresh Snapshot
+                Atualizar Instantâneo
               </Button>
             </div>
           </CardContent>
@@ -232,24 +232,24 @@ export default function DashboardPage() {
           <CardHeader className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Sales Rhythm
+                Ritmo de Vendas
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Hour-by-hour revenue flow for the current service day.
+                Fluxo de receita hora a hora para o dia de serviço atual.
               </CardDescription>
             </div>
             <div className="text-[11px] font-black uppercase tracking-[0.24em] text-muted-foreground">
-              Hourly sales
+              Vendas por hora
             </div>
           </CardHeader>
           <CardContent>
             {overview.salesByHour.length === 0 ? (
               <div className="flex h-[350px] w-full flex-col items-center justify-center text-center text-muted-foreground">
                 <p className="brand-display text-2xl font-semibold text-foreground">
-                  No hourly sales yet
+                  Nenhuma venda por hora ainda
                 </p>
                 <p className="mt-2 text-sm font-medium">
-                  Sales trend will populate once live orders are billed.
+                  A tendência de vendas será preenchida quando os pedidos ao vivo forem faturados.
                 </p>
               </div>
             ) : (
@@ -304,20 +304,20 @@ export default function DashboardPage() {
         <Card className="border-border/70 bg-card/95">
           <CardHeader>
             <CardTitle className="brand-display text-3xl font-semibold">
-              Top Selling Items
+              Itens Mais Vendidos
             </CardTitle>
             <CardDescription className="text-sm font-medium">
-              Best performing dishes by billed revenue and quantity sold.
+              Melhores pratos por receita faturada e quantidade vendida.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {overview.topItems.length === 0 ? (
               <div className="py-12 text-center text-muted-foreground">
                 <p className="brand-display text-2xl font-semibold text-foreground">
-                  No item sales yet
+                  Nenhuma venda de item ainda
                 </p>
                 <p className="mt-2 text-sm font-medium">
-                  Top items will appear once live orders come in.
+                  Os principais itens aparecerão quando os pedidos ao vivo chegarem.
                 </p>
               </div>
             ) : (
@@ -337,7 +337,7 @@ export default function DashboardPage() {
                         <div>
                           <p className="text-sm font-semibold text-foreground">{item.name}</p>
                           <p className="mt-1 text-xs font-medium text-muted-foreground">
-                            {item.orders} qty sold
+                            {item.orders} qtd vendida
                           </p>
                         </div>
                       </div>
@@ -346,7 +346,7 @@ export default function DashboardPage() {
                           {formatCurrency(item.revenue)}
                         </p>
                         <p className="mt-1 text-[11px] font-black uppercase tracking-[0.18em] text-muted-foreground">
-                          Revenue
+                          Receita
                         </p>
                       </div>
                     </div>

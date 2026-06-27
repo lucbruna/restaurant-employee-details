@@ -97,17 +97,17 @@ async function findOutletForId(outletId: string) {
 
 function ensureOrderPayable(order: OrderRow | undefined): asserts order is OrderRow {
   if (!order) {
-    throw new PaymentServiceError(404, 'Order not found');
+    throw new PaymentServiceError(404, 'Pedido não encontrado');
   }
 
   if (order.status === 'paid') {
-    throw new PaymentServiceError(409, 'This order has already been paid.');
+    throw new PaymentServiceError(409, 'Este pedido já foi pago.');
   }
 
   if (order.status === 'cancelled' || order.status === 'void') {
     throw new PaymentServiceError(
       409,
-      `Cannot collect payment for a ${order.status} order.`,
+      `Não é possível cobrar um pedido com status ${order.status}.`,
     );
   }
 }
@@ -146,8 +146,8 @@ function resolveProviderSettings({
     throw new PaymentServiceError(
       400,
       requestedProvider
-        ? `Payment provider "${requestedProvider}" is not enabled for this outlet.`
-        : 'No enabled payment provider is configured for this outlet.',
+        ? `O provedor de pagamento "${requestedProvider}" não está habilitado para este estabelecimento.`
+        : 'Nenhum provedor de pagamento habilitado está configurado para este estabelecimento.',
     );
   }
 
@@ -156,7 +156,7 @@ function resolveProviderSettings({
   if (!providerSettings.enabled) {
     throw new PaymentServiceError(
       400,
-      `Payment provider "${provider}" is not enabled for this outlet.`,
+      `O provedor de pagamento "${provider}" não está habilitado para este estabelecimento.`,
     );
   }
 
@@ -165,7 +165,7 @@ function resolveProviderSettings({
   if (!providerSettings.supportedMethods.includes(paymentMethod)) {
     throw new PaymentServiceError(
       400,
-      `Payment method "${paymentMethod}" is not supported by ${providerSettings.displayName}.`,
+      `O método de pagamento "${paymentMethod}" não é suportado por ${providerSettings.displayName}.`,
       {
         provider,
         supportedMethods: providerSettings.supportedMethods,
@@ -301,7 +301,7 @@ function emitTableAvailabilityUpdate(outletId: string, tableId: string) {
 
 function toPaymentServiceError(
   error: unknown,
-  fallbackMessage = 'Payment provider request failed.',
+  fallbackMessage = 'A solicitação ao provedor de pagamento falhou.',
 ) {
   if (error instanceof PaymentServiceError) {
     return error;
@@ -328,11 +328,11 @@ async function settleOrderPayment({
   });
 
   if (!paymentAttempt) {
-    throw new PaymentServiceError(404, 'Payment attempt not found.');
+    throw new PaymentServiceError(404, 'Tentativa de pagamento não encontrada.');
   }
 
   if (!paymentAttempt.orderId) {
-    throw new PaymentServiceError(409, 'Payment attempt is not linked to an order.');
+    throw new PaymentServiceError(409, 'A tentativa de pagamento não está vinculada a um pedido.');
   }
 
   const paymentMethod = isPaymentMethodCode(paymentAttempt.paymentMethod)
@@ -352,20 +352,20 @@ async function settleOrderPayment({
       .get();
 
     if (!currentOrder) {
-      throw new PaymentServiceError(404, 'Order not found.');
+      throw new PaymentServiceError(404, 'Pedido não encontrado.');
     }
 
     if (currentOrder.status === 'cancelled' || currentOrder.status === 'void') {
       throw new PaymentServiceError(
         409,
-        `Cannot settle payment for a ${currentOrder.status} order.`,
+        `Não é possível finalizar o pagamento de um pedido com status ${currentOrder.status}.`,
       );
     }
 
     const currentOutletId = currentOrder.outletId ?? paymentAttempt.outletId;
 
     if (!currentOutletId) {
-      throw new PaymentServiceError(500, 'Order is missing an outlet reference.');
+      throw new PaymentServiceError(500, 'O pedido não possui referência de estabelecimento.');
     }
 
     tx
@@ -511,7 +511,7 @@ export async function createOrderPaymentSession({
   const outlet = await findOutletForId(outletId);
 
   if (!outlet) {
-    throw new PaymentServiceError(404, 'Outlet not found.');
+    throw new PaymentServiceError(404, 'Estabelecimento não encontrado.');
   }
 
   const resolved = resolveProviderSettings({
@@ -608,7 +608,7 @@ export async function collectManualPayment({
   const outlet = await findOutletForId(outletId);
 
   if (!outlet) {
-    throw new PaymentServiceError(404, 'Outlet not found.');
+    throw new PaymentServiceError(404, 'Estabelecimento não encontrado.');
   }
 
   const resolved = resolveProviderSettings({
@@ -623,7 +623,7 @@ export async function collectManualPayment({
       : roundCurrency(Math.max(0, toSafeNumber(amountPaid, amountDue)));
 
   if (paymentMethod !== 'complimentary' && normalizedAmountPaid < amountDue) {
-    throw new PaymentServiceError(400, 'Amount paid must cover the full bill in demo mode.');
+    throw new PaymentServiceError(400, 'O valor pago deve cobrir a conta total no modo de demonstração.');
   }
 
   const changeAmount =

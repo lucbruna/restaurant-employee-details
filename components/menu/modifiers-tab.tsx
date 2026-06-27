@@ -31,7 +31,7 @@ export function ModifiersTab() {
       const res = await apiClient.get("/menu/modifierGroups");
       setGroups(res.data);
     } catch (error) {
-      toast.error("Failed to load modifier groups");
+      toast.error("Falha ao carregar grupos de modificadores");
     } finally {
       setIsLoading(false);
     }
@@ -48,18 +48,18 @@ export function ModifiersTab() {
   };
 
   const deleteGroup = async (id: string) => {
-    if (!confirm("Delete this modifier group?")) return;
+    if (!confirm("Excluir este grupo de modificadores?")) return;
     try {
       await apiClient.delete(`/menu/modifierGroups/${id}`);
       setGroups(groups.filter(g => g.id !== id));
-      toast.success("Group deleted");
+      toast.success("Grupo excluído");
     } catch (error) {
-      toast.error("Failed to delete group");
+      toast.error("Falha ao excluir grupo");
     }
   };
 
   const deleteModifier = async (id: string, groupId: string) => {
-    if (!confirm("Delete this modifier?")) return;
+    if (!confirm("Excluir este modificador?")) return;
     try {
       await apiClient.delete(`/menu/modifiers/${id}`);
       setGroups(groups.map(g => {
@@ -68,9 +68,9 @@ export function ModifiersTab() {
         }
         return g;
       }));
-      toast.success("Modifier deleted");
+      toast.success("Modificador excluído");
     } catch (error) {
-      toast.error("Failed to delete modifier");
+      toast.error("Falha ao excluir modificador");
     }
   };
 
@@ -81,15 +81,15 @@ export function ModifiersTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-medium text-text-primary">Modifier Groups</h3>
+        <h3 className="text-lg font-medium text-text-primary">Grupos de Modificadores</h3>
         <Button onClick={() => { setEditingGroup(null); setIsGroupModalOpen(true); }} className="gap-2">
-          <Plus className="w-4 h-4" /> Add Group
+          <Plus className="w-4 h-4" /> Adicionar Grupo
         </Button>
       </div>
 
       {groups.length === 0 ? (
         <Card className="border-border shadow-sm p-8 text-center text-text-muted">
-          <p>No modifier groups found. Create one to get started.</p>
+          <p>Nenhum grupo de modificadores encontrado. Crie um para começar.</p>
         </Card>
       ) : (
         <div className="space-y-4">
@@ -104,14 +104,14 @@ export function ModifiersTab() {
                   <div>
                     <h4 className="font-semibold text-primary">{group.name}</h4>
                     <p className="text-xs text-text-muted">
-                      {group.selectionType === 'single' ? 'Single Selection' : `Multiple Selection (${group.minSelections}-${group.maxSelections})`}
-                      {group.isRequired && ' • Required'}
+                      {group.selectionType === 'single' ? 'Seleção Única' : `Seleção Múltipla (${group.minSelections}-${group.maxSelections})`}
+                      {group.isRequired && ' • Obrigatório'}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
                   <Button variant="outline" size="sm" onClick={() => { setSelectedGroupId(group.id); setEditingModifier(null); setIsModifierModalOpen(true); }}>
-                    <Plus className="w-3 h-3 mr-1" /> Add Modifier
+                    <Plus className="w-3 h-3 mr-1" /> Adicionar Modificador
                   </Button>
                   <Button variant="ghost" size="icon" onClick={() => { setEditingGroup(group); setIsGroupModalOpen(true); }}>
                     <Edit className="w-4 h-4 text-text-secondary" />
@@ -125,16 +125,16 @@ export function ModifiersTab() {
               {expandedGroups.includes(group.id) && (
                 <div className="border-t border-border bg-background p-4">
                   {group.modifiers?.length === 0 ? (
-                    <p className="text-sm text-text-muted text-center py-4">No modifiers in this group.</p>
+                    <p className="text-sm text-text-muted text-center py-4">Nenhum modificador neste grupo.</p>
                   ) : (
                     <Table>
                       <TableHeader>
                         <TableRow className="bg-muted/20">
-                          <TableHead>Name</TableHead>
-                          <TableHead>Price Delta</TableHead>
-                          <TableHead>Default</TableHead>
-                          <TableHead>Active</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
+                          <TableHead>Nome</TableHead>
+                          <TableHead>Delta Preço</TableHead>
+                          <TableHead>Padrão</TableHead>
+                          <TableHead>Ativo</TableHead>
+                          <TableHead className="text-right">Ações</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -142,7 +142,7 @@ export function ModifiersTab() {
                           <TableRow key={mod.id}>
                             <TableCell className="font-medium">{mod.name}</TableCell>
                             <TableCell>{mod.priceDelta > 0 ? `+${formatCurrency(mod.priceDelta)}` : mod.priceDelta < 0 ? `-${formatCurrency(Math.abs(mod.priceDelta))}` : '-'}</TableCell>
-                            <TableCell>{mod.isDefault ? 'Yes' : 'No'}</TableCell>
+                            <TableCell>{mod.isDefault ? 'Sim' : 'Não'}</TableCell>
                             <TableCell>
                               <Switch 
                                 checked={mod.isActive} 
@@ -151,7 +151,7 @@ export function ModifiersTab() {
                                     await apiClient.patch(`/menu/modifiers/${mod.id}`, { isActive: !mod.isActive });
                                     fetchGroups();
                                   } catch (e) {
-                                    toast.error("Failed to update status");
+                                    toast.error("Falha ao atualizar status");
                                   }
                                 }} 
                               />
@@ -226,15 +226,15 @@ function GroupModal({ isOpen, onClose, group, onSuccess }: any) {
     try {
       if (group) {
         await apiClient.patch(`/menu/modifierGroups/${group.id}`, formData);
-        toast.success("Group updated");
+        toast.success("Grupo atualizado");
       } else {
         await apiClient.post("/menu/modifierGroups", formData);
-        toast.success("Group created");
+        toast.success("Grupo criado");
       }
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error("Failed to save group");
+      toast.error("Falha ao salvar grupo");
     } finally {
       setIsSubmitting(false);
     }
@@ -244,22 +244,22 @@ function GroupModal({ isOpen, onClose, group, onSuccess }: any) {
     <Modal open={isOpen} onOpenChange={open => !open && onClose()}>
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>{group ? "Edit Group" : "Add Group"}</ModalTitle>
+          <ModalTitle>{group ? "Editar Grupo" : "Adicionar Grupo"}</ModalTitle>
         </ModalHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label>Name</Label>
-            <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="e.g. Crust Type" />
+            <Label>Nome</Label>
+            <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="ex: Tipo de Massa" />
           </div>
           
           <div className="space-y-2">
-            <Label>Selection Type</Label>
+            <Label>Tipo de Seleção</Label>
             <Select value={formData.selectionType} onValueChange={v => setFormData({...formData, selectionType: v})}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="single">Single Selection</SelectItem>
-                <SelectItem value="multiple">Multiple Selection</SelectItem>
+                <SelectItem value="single">Seleção Única</SelectItem>
+                <SelectItem value="multiple">Seleção Múltipla</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -267,11 +267,11 @@ function GroupModal({ isOpen, onClose, group, onSuccess }: any) {
           {formData.selectionType === 'multiple' && (
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>Min Selections</Label>
+                <Label>Mín. Seleções</Label>
                 <Input type="number" min="0" value={formData.minSelections} onChange={e => setFormData({...formData, minSelections: parseInt(e.target.value)})} />
               </div>
               <div className="space-y-2">
-                <Label>Max Selections</Label>
+                <Label>Máx. Seleções</Label>
                 <Input type="number" min="1" value={formData.maxSelections} onChange={e => setFormData({...formData, maxSelections: parseInt(e.target.value)})} />
               </div>
             </div>
@@ -279,17 +279,17 @@ function GroupModal({ isOpen, onClose, group, onSuccess }: any) {
 
           <div className="flex items-center justify-between rounded-lg border border-border p-3">
             <div className="space-y-0.5">
-              <Label>Required</Label>
-              <p className="text-xs text-text-muted">Must select at least one</p>
+              <Label>Obrigatório</Label>
+              <p className="text-xs text-text-muted">Deve selecionar pelo menos um</p>
             </div>
             <Switch checked={formData.isRequired} onCheckedChange={v => setFormData({...formData, isRequired: v})} />
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              Save Group
+              Salvar Grupo
             </Button>
           </div>
         </form>
@@ -326,15 +326,15 @@ function ModifierModal({ isOpen, onClose, modifier, groupId, onSuccess }: any) {
     try {
       if (modifier) {
         await apiClient.patch(`/menu/modifiers/${modifier.id}`, formData);
-        toast.success("Modifier updated");
+        toast.success("Modificador atualizado");
       } else {
         await apiClient.post("/menu/modifiers", { ...formData, groupId });
-        toast.success("Modifier created");
+        toast.success("Modificador criado");
       }
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error("Failed to save modifier");
+      toast.error("Falha ao salvar modificador");
     } finally {
       setIsSubmitting(false);
     }
@@ -344,34 +344,34 @@ function ModifierModal({ isOpen, onClose, modifier, groupId, onSuccess }: any) {
     <Modal open={isOpen} onOpenChange={open => !open && onClose()}>
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>{modifier ? "Edit Modifier" : "Add Modifier"}</ModalTitle>
+          <ModalTitle>{modifier ? "Editar Modificador" : "Adicionar Modificador"}</ModalTitle>
         </ModalHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label>Name</Label>
-            <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="e.g. Extra Cheese" />
+            <Label>Nome</Label>
+            <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="ex: Queijo Extra" />
           </div>
           
           <div className="space-y-2">
-            <Label>Price Delta (₹)</Label>
-            <Input type="number" step="0.01" value={formData.priceDelta} onChange={e => setFormData({...formData, priceDelta: parseFloat(e.target.value)})} placeholder="0.00" />
-            <p className="text-xs text-text-muted">Use negative values for discounts</p>
+            <Label>Delta Preço (₹)</Label>
+            <Input type="number" step="0.01" value={formData.priceDelta} onChange={e => setFormData({...formData, priceDelta: parseFloat(e.target.value)})} placeholder="0,00" />
+            <p className="text-xs text-text-muted">Use valores negativos para descontos</p>
           </div>
 
           <div className="flex items-center justify-between rounded-lg border border-border p-3">
             <div className="space-y-0.5">
-              <Label>Default Selection</Label>
-              <p className="text-xs text-text-muted">Pre-selected by default</p>
+              <Label>Seleção Padrão</Label>
+              <p className="text-xs text-text-muted">Pré-selecionado por padrão</p>
             </div>
             <Switch checked={formData.isDefault} onCheckedChange={v => setFormData({...formData, isDefault: v})} />
           </div>
 
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              Save Modifier
+              Salvar Modificador
             </Button>
           </div>
         </form>

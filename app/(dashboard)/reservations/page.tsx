@@ -80,7 +80,7 @@ export default function ReservationsPage() {
       setLoadError(
         getApiErrorMessage(
           error,
-          "The reservations workspace could not load live booking data.",
+          "O workspace de reservas não pôde carregar os dados de reservas ao vivo.",
         ),
       );
     } finally {
@@ -127,7 +127,7 @@ export default function ReservationsPage() {
         <Card className="border-border/70 bg-card/95">
           <CardContent className="flex items-center gap-3 p-6 text-sm font-semibold text-muted-foreground">
             <Loader2 className="h-5 w-5 animate-spin text-primary" />
-            Loading live reservations…
+            Carregando reservas ao vivo…
           </CardContent>
         </Card>
       </div>
@@ -141,15 +141,15 @@ export default function ReservationsPage() {
           <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-end md:justify-between md:p-8">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
-                Bhukkad Guest Book
+                Livro de Convidados Bhukkad
               </div>
               <div className="space-y-2">
                 <h1 className="brand-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-                  Reservations
+                  Reservas
                 </h1>
                 <p className="max-w-2xl text-sm font-medium leading-relaxed text-muted-foreground md:text-base">
-                  Track tonight&apos;s bookings, confirm covers quickly, and keep the front-of-house
-                  team aligned.
+                  Acompanhe as reservas de hoje, confirme covers rapidamente e mantenha a equipe
+                  de salão alinhada.
                 </p>
               </div>
             </div>
@@ -164,11 +164,11 @@ export default function ReservationsPage() {
                 ) : (
                   <RefreshCw className="mr-2 h-4 w-4" />
                 )}
-                Refresh
+                Atualizar
               </Button>
               <Button onClick={() => setShowReservationModal(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Add Reservation
+                Adicionar Reserva
               </Button>
             </div>
           </CardContent>
@@ -180,7 +180,7 @@ export default function ReservationsPage() {
           <CardContent className="flex flex-col gap-3 p-5 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-sm font-semibold text-destructive">
-                Reservations sync needs attention
+                Sincronização de reservas precisa de atenção
               </p>
               <p className="mt-1 text-sm text-muted-foreground">{loadError}</p>
             </div>
@@ -189,16 +189,16 @@ export default function ReservationsPage() {
               onClick={() => void loadReservations()}
               disabled={isRefreshing}
             >
-              Retry sync
+              Tentar sincronização
             </Button>
           </CardContent>
         </Card>
       ) : null}
 
       <div className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-        <SummaryCard label="Confirmed bookings" value={confirmedCount.toString()} />
-        <SummaryCard label="Pending follow-up" value={pendingCount.toString()} />
-        <SummaryCard label="Expected covers" value={totalCovers.toString()} />
+        <SummaryCard label="Reservas confirmadas" value={confirmedCount.toString()} />
+        <SummaryCard label="Pendente" value={pendingCount.toString()} />
+        <SummaryCard label="Covers esperados" value={totalCovers.toString()} />
       </div>
 
       <div className="grid gap-4">
@@ -210,15 +210,15 @@ export default function ReservationsPage() {
               </div>
               <div className="space-y-1">
                 <h2 className="text-lg font-semibold text-foreground">
-                  No reservations yet
+                  Nenhuma reserva ainda
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  New bookings will appear here as soon as the host team adds them.
+                  Novas reservas aparecerão aqui assim que a equipe de recepção as adicionar.
                 </p>
               </div>
               <Button onClick={() => setShowReservationModal(true)}>
                 <Plus className="mr-2 h-4 w-4" />
-                Add the first reservation
+                Adicionar a primeira reserva
               </Button>
             </CardContent>
           </Card>
@@ -238,8 +238,8 @@ export default function ReservationsPage() {
                     </h2>
                     <p className="text-sm font-medium text-muted-foreground">
                       {reservation.tableName
-                        ? `Assigned to table ${reservation.tableName}.`
-                        : "Awaiting table assignment from the host team."}
+                        ? `Atribuído à mesa ${reservation.tableName}.`
+                        : "Aguardando atribuição de mesa pela equipe de recepção."}
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-4 text-sm font-medium text-muted-foreground">

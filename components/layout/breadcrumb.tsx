@@ -11,12 +11,12 @@ export function Breadcrumb() {
   if (paths.length === 0) return null;
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center text-sm text-muted-foreground">
+      <nav aria-label="Navegação estrutural" className="flex items-center text-sm text-muted-foreground">
       <ol className="flex items-center space-x-2">
         <li>
           <Link href="/pos" className="hover:text-foreground transition-colors flex items-center">
             <Home className="w-4 h-4" />
-            <span className="sr-only">Home</span>
+            <span className="sr-only">Início</span>
           </Link>
         </li>
         {paths.map((path, index) => {

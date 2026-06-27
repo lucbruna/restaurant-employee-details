@@ -36,7 +36,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
         const response = await apiClient.get<Customer[]>("/customers");
         setCustomers(response.data);
       } catch {
-        toast.error("Failed to load customers");
+        toast.error("Falha ao carregar clientes");
       } finally {
         setIsLoading(false);
       }
@@ -105,7 +105,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
       <DialogContent className="flex h-[600px] max-w-md flex-col overflow-hidden rounded-[var(--radius-xxl)] border-border/70 bg-card p-0 shadow-[var(--shadow-elevation-3)]">
         <DialogHeader className="shrink-0 border-b border-border/70 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--surface-container-highest)_96%,transparent),color-mix(in_srgb,var(--primary-light)_54%,var(--surface-container-highest)))] p-6">
           <div className="flex items-center justify-between">
-            <DialogTitle className="text-xl font-black tracking-tight text-text-primary">Customer Selection</DialogTitle>
+            <DialogTitle className="text-xl font-black tracking-tight text-text-primary">Seleção de Cliente</DialogTitle>
             <Button 
               variant={isAddingNew ? "ghost" : "outline"} 
               size="sm" 
@@ -118,7 +118,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                 }
               }}
             >
-              {isAddingNew ? "Back to List" : "Add New"}
+              {isAddingNew ? "Voltar à Lista" : "Adicionar Novo"}
             </Button>
           </div>
         </DialogHeader>
@@ -135,7 +135,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                 onSubmit={handleAddCustomer}
               >
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold uppercase tracking-wider">Phone Number *</Label>
+                  <Label className="text-xs font-bold uppercase tracking-wider">Número de Telefone *</Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
                     <Input 
@@ -148,7 +148,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold uppercase tracking-wider">Full Name *</Label>
+                  <Label className="text-xs font-bold uppercase tracking-wider">Nome Completo *</Label>
                   <Input 
                     required
                     placeholder="John Doe" 
@@ -158,7 +158,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold uppercase tracking-wider">Email Address</Label>
+                  <Label className="text-xs font-bold uppercase tracking-wider">Endereço de Email</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
                     <Input 
@@ -171,7 +171,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-xs font-bold uppercase tracking-wider">Address</Label>
+                  <Label className="text-xs font-bold uppercase tracking-wider">Endereço</Label>
                   <div className="relative">
                     <MapPin className="absolute left-3 top-3 h-4 w-4 text-text-muted" />
                     <textarea 
@@ -183,7 +183,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                   </div>
                 </div>
                 <Button type="submit" className="w-full h-12 font-bold text-lg mt-4">
-                  {isSaving ? "Saving..." : "Save & Select"}
+                  {isSaving ? "Salvando..." : "Salvar e Selecionar"}
                 </Button>
               </motion.form>
             ) : (
@@ -198,7 +198,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
                     <Input 
-                      placeholder="Search by name or phone..." 
+                      placeholder="Buscar por nome ou telefone..." 
                       className="h-11 border-border/70 bg-background pl-10"
                       value={searchQuery}
                       onChange={e => setSearchQuery(e.target.value)}
@@ -209,7 +209,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                 <div className="flex-1 overflow-y-auto p-6 pt-2 space-y-3">
                   {isLoading ? (
                     <div className="flex items-center justify-center py-12 text-text-muted">
-                      <div className="text-sm font-bold">Loading customers...</div>
+                      <div className="text-sm font-bold">Carregando clientes...</div>
                     </div>
                   ) : filteredCustomers.length > 0 ? (
                     filteredCustomers.map((customer) => (
@@ -230,7 +230,7 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                             <p className="text-xs font-bold text-text-muted">{customer.phone}</p>
                             {customer.totalSpent ? (
                               <p className="mt-0.5 text-[11px] text-text-secondary">
-                                {customer.totalOrders ?? 0} orders • Rs. {customer.totalSpent.toFixed(0)} lifetime spend
+                                {customer.totalOrders ?? 0} pedidos • Rs. {customer.totalSpent.toFixed(0)} gasto total
                               </p>
                             ) : null}
                           </div>
@@ -243,13 +243,13 @@ export function CustomerModal({ isOpen, onClose, onSelect }: CustomerModalProps)
                   ) : (
                     <div className="flex flex-col items-center justify-center py-12 text-text-muted">
                       <UserPlus className="w-12 h-12 mb-4 opacity-20" />
-                      <p className="font-bold text-sm">No customers found</p>
+                      <p className="font-bold text-sm">Nenhum cliente encontrado</p>
                       <Button 
                         variant="link" 
                         className="font-bold text-primary"
                         onClick={openNewCustomerForm}
                       >
-                        Add &quot;{searchQuery}&quot; as new customer
+                        Adicionar &quot;{searchQuery}&quot; como novo cliente
                       </Button>
                     </div>
                   )}

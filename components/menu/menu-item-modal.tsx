@@ -16,11 +16,11 @@ import { apiClient } from "@/lib/api-client";
 import { Category } from "@/types";
 
 const menuItemSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Nome é obrigatório"),
   description: z.string().optional(),
   shortCode: z.string().optional(),
-  basePrice: z.coerce.number().min(0, "Price must be positive"),
-  categoryId: z.string().min(1, "Category is required"),
+  basePrice: z.coerce.number().min(0, "Preço deve ser positivo"),
+  categoryId: z.string().min(1, "Categoria é obrigatória"),
   foodType: z.enum(["veg", "non_veg", "vegan", "egg"]),
   spiceLevel: z.coerce.number().min(0).max(5).default(0),
   prepTimeMinutes: z.coerce.number().min(0).default(15),
@@ -91,15 +91,15 @@ export function MenuItemModal({ isOpen, onClose, item, categories, onSuccess }: 
       
       if (item) {
         await apiClient.patch(`/menu/items/${item.id}`, payload);
-        toast.success("Item updated successfully");
+        toast.success("Item atualizado com sucesso");
       } else {
         await apiClient.post("/menu/items", payload);
-        toast.success("Item created successfully");
+        toast.success("Item criado com sucesso");
       }
       onSuccess();
       onClose();
     } catch {
-      toast.error(item ? "Failed to update item" : "Failed to create item");
+      toast.error(item ? "Falha ao atualizar item" : "Falha ao criar item");
     } finally {
       setIsSubmitting(false);
     }
@@ -109,38 +109,38 @@ export function MenuItemModal({ isOpen, onClose, item, categories, onSuccess }: 
     <Modal open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <ModalContent className="max-w-2xl">
         <ModalHeader>
-          <ModalTitle>{item ? "Edit Menu Item" : "Add Menu Item"}</ModalTitle>
+          <ModalTitle>{item ? "Editar Item do Cardápio" : "Adicionar Item do Cardápio"}</ModalTitle>
         </ModalHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Name *</Label>
-              <Input {...register("name")} placeholder="e.g. Paneer Tikka" />
+              <Label>Nome *</Label>
+              <Input {...register("name")} placeholder="ex: Paneer Tikka" />
               {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
             </div>
             <div className="space-y-2">
-              <Label>Short Code</Label>
-              <Input {...register("shortCode")} placeholder="e.g. PT" />
+              <Label>Código Curto</Label>
+              <Input {...register("shortCode")} placeholder="ex: PT" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label>Description</Label>
-            <Input {...register("description")} placeholder="Brief description of the item" />
+            <Label>Descrição</Label>
+            <Input {...register("description")} placeholder="Breve descrição do item" />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Base Price (₹) *</Label>
-              <Input type="number" step="0.01" {...register("basePrice")} placeholder="0.00" />
+              <Label>Preço Base (₹) *</Label>
+              <Input type="number" step="0.01" {...register("basePrice")} placeholder="0,00" />
               {errors.basePrice && <p className="text-xs text-destructive">{errors.basePrice.message}</p>}
             </div>
             <div className="space-y-2">
-              <Label>Category *</Label>
+              <Label>Categoria *</Label>
               <Select onValueChange={(val) => setValue("categoryId", val)} defaultValue={watch("categoryId")}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Selecione a categoria" />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map(c => (
@@ -154,21 +154,21 @@ export function MenuItemModal({ isOpen, onClose, item, categories, onSuccess }: 
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Food Type</Label>
+              <Label>Tipo de Alimento</Label>
               <Select onValueChange={(val: any) => setValue("foodType", val)} defaultValue={watch("foodType")}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select type" />
+                  <SelectValue placeholder="Selecione o tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="veg">Vegetarian</SelectItem>
-                  <SelectItem value="non_veg">Non-Vegetarian</SelectItem>
-                  <SelectItem value="vegan">Vegan</SelectItem>
-                  <SelectItem value="egg">Contains Egg</SelectItem>
+                  <SelectItem value="veg">Vegetariano</SelectItem>
+                  <SelectItem value="non_veg">Não Vegetariano</SelectItem>
+                  <SelectItem value="vegan">Vegano</SelectItem>
+                  <SelectItem value="egg">Contém Ovo</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>Spice Level (0-5)</Label>
+              <Label>Nível de Picância (0-5)</Label>
               <Input type="number" min="0" max="5" {...register("spiceLevel")} />
             </div>
           </div>
@@ -176,25 +176,25 @@ export function MenuItemModal({ isOpen, onClose, item, categories, onSuccess }: 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center justify-between p-3 border border-border rounded-lg">
               <div className="space-y-0.5">
-                <Label>Active</Label>
-                <p className="text-xs text-text-muted">Available for ordering</p>
+                <Label>Ativo</Label>
+                <p className="text-xs text-text-muted">Disponível para pedidos</p>
               </div>
               <Switch checked={watch("isActive")} onCheckedChange={(val) => setValue("isActive", val)} />
             </div>
             <div className="flex items-center justify-between p-3 border border-border rounded-lg">
               <div className="space-y-0.5">
-                <Label>Bestseller</Label>
-                <p className="text-xs text-text-muted">Highlight in menu</p>
+                <Label>Mais Vendido</Label>
+                <p className="text-xs text-text-muted">Destacar no cardápio</p>
               </div>
               <Switch checked={watch("isBestseller")} onCheckedChange={(val) => setValue("isBestseller", val)} />
             </div>
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t border-border">
-            <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={onClose}>Cancelar</Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {item ? "Update Item" : "Create Item"}
+              {item ? "Atualizar Item" : "Criar Item"}
             </Button>
           </div>
         </form>

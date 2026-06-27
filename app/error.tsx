@@ -10,19 +10,19 @@ export default function GlobalError({
   reset: () => void;
 }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className="min-h-screen bg-background px-6 py-8 sm:px-8">
         <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-5xl items-center">
           <StatePanel
-            eyebrow="Bhukkad Recovery"
+            eyebrow="Recuperação"
             tone="error"
-            title="Service interrupted, fallback is active."
+            title="Serviço temporariamente indisponível."
             description={
               error?.message ||
-              "We hit an unexpected issue while assembling this view. The safest recovery path is ready, and you can retry immediately without leaving the operating flow."
+              "Ocorreu um erro inesperado ao carregar esta página. Você pode tentar novamente ou voltar ao painel."
             }
-            primaryAction={{ label: "Retry view", onClick: reset }}
-            secondaryAction={{ label: "Open dashboard", href: "/dashboard", variant: "outline" }}
+            primaryAction={{ label: "Tentar Novamente", onClick: reset }}
+            secondaryAction={{ label: "Abrir Painel", href: "/dashboard", variant: "outline" }}
             className="w-full"
           />
         </main>

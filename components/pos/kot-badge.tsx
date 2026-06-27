@@ -9,15 +9,15 @@ export function KotBadge({ status, count }: KotBadgeProps) {
   const getStatusConfig = () => {
     switch (status) {
       case "pending":
-        return { bg: "bg-warning/10", text: "text-warning", border: "border-warning/20", label: "Pending" };
+        return { bg: "bg-warning/10", text: "text-warning", border: "border-warning/20", label: "Pendente" };
       case "preparing":
-        return { bg: "bg-info/10", text: "text-info", border: "border-info/20", label: "Cooking" };
+        return { bg: "bg-info/10", text: "text-info", border: "border-info/20", label: "Cozinhando" };
       case "ready":
-        return { bg: "bg-success/10", text: "text-success", border: "border-success/20", label: "Ready" };
+        return { bg: "bg-success/10", text: "text-success", border: "border-success/20", label: "Pronto" };
       case "served":
-        return { bg: "bg-muted", text: "text-muted-foreground", border: "border-border", label: "Served" };
+        return { bg: "bg-muted", text: "text-muted-foreground", border: "border-border", label: "Servido" };
       default:
-        return { bg: "bg-muted", text: "text-muted-foreground", border: "border-border", label: "Unknown" };
+        return { bg: "bg-muted", text: "text-muted-foreground", border: "border-border", label: "Desconhecido" };
     }
   };
 

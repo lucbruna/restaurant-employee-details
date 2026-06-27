@@ -20,7 +20,7 @@ export function ThemeToggle() {
         size="icon"
         variant="outline"
         className="h-10 w-10 rounded-full border-border/70 bg-card/80"
-        aria-label="Toggle theme"
+        aria-label="Alternar tema"
       />
     );
   }
@@ -34,7 +34,7 @@ export function ThemeToggle() {
       variant="outline"
       className="h-10 w-10 rounded-full border-border/70 bg-card/80"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={isDark ? "Alternar para modo claro" : "Alternar para modo escuro"}
     >
       {isDark ? <SunMedium className="h-4 w-4" /> : <MoonStar className="h-4 w-4" />}
     </Button>

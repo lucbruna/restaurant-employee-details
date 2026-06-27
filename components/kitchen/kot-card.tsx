@@ -30,9 +30,9 @@ export function KotCard({ kot, onStatusChange }: { kot: any, onStatusChange: (id
             #{kot.kotNumber}
           </div>
           <div>
-            <div className="font-bold text-lg leading-none mb-1">{kot.table?.name || 'Takeaway'}</div>
+            <div className="font-bold text-lg leading-none mb-1">{kot.table?.name || 'Para Viagem'}</div>
             <div className="text-xs text-white/50 uppercase tracking-wider font-semibold">
-              {kot.orderType?.replace('_', ' ') || 'Order'}
+              {kot.orderType?.replace('_', ' ') || 'Pedido'}
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ export function KotCard({ kot, onStatusChange }: { kot: any, onStatusChange: (id
               
               {item.itemNote && (
                 <div className="bg-warning/20 text-warning px-3 py-2 rounded-lg text-sm font-medium mt-2 border border-warning/20">
-                  Note: {item.itemNote}
+                  Obs: {item.itemNote}
                 </div>
               )}
             </div>
@@ -73,7 +73,7 @@ export function KotCard({ kot, onStatusChange }: { kot: any, onStatusChange: (id
             onClick={() => onStatusChange(kot.id, 'preparing')}
           >
             <PlayCircle className="w-6 h-6 mr-2" />
-            Start Preparing
+            Iniciar Preparo
           </Button>
         )}
         
@@ -83,7 +83,7 @@ export function KotCard({ kot, onStatusChange }: { kot: any, onStatusChange: (id
             onClick={() => onStatusChange(kot.id, 'ready')}
           >
             <CheckCircle2 className="w-6 h-6 mr-2" />
-            Mark Ready
+            Marcar Pronto
           </Button>
         )}
 
@@ -94,7 +94,7 @@ export function KotCard({ kot, onStatusChange }: { kot: any, onStatusChange: (id
             onClick={() => onStatusChange(kot.id, 'served')}
           >
             <Utensils className="w-6 h-6 mr-2" />
-            Mark Served
+            Marcar Servido
           </Button>
         )}
       </div>

@@ -34,7 +34,7 @@ export function OrderCart() {
 
   const handleAiSuggest = async () => {
     if (cart.length === 0) {
-      toast.info("Add some items to get AI suggestions");
+      toast.info("Adicione alguns itens para obter sugestões de IA");
       return;
     }
     setIsAiLoading(true);
@@ -47,7 +47,7 @@ export function OrderCart() {
       });
       setAiSuggestion(data?.response ?? null);
     } catch (error) {
-      toast.error(getApiErrorMessage(error, "Failed to get AI suggestions right now."));
+      toast.error(getApiErrorMessage(error, "Falha ao obter sugestões de IA agora."));
     } finally {
       setIsAiLoading(false);
     }
@@ -74,11 +74,11 @@ export function OrderCart() {
     setIsSubmitting(true);
     try {
       await createOrder();
-      toast.success("KOT sent to kitchen");
+      toast.success("KOT enviado para a cozinha");
       clearCart();
     } catch (error) {
       toast.error(
-        getApiErrorMessage(error, "Failed to send the kitchen order ticket.")
+        getApiErrorMessage(error, "Falha ao enviar o ticket de pedido para a cozinha.")
       );
     } finally {
       setIsSubmitting(false);
@@ -99,13 +99,13 @@ export function OrderCart() {
         amountPaid: total,
       });
 
-      toast.success("Bill generated and paid");
+      toast.success("Conta gerada e paga");
       clearCart();
     } catch (error) {
       toast.error(
         createdOrderId
-          ? "The order was created, but payment did not complete. You can settle it from active orders."
-          : getApiErrorMessage(error, "Failed to generate the bill.")
+          ? "O pedido foi criado, mas o pagamento não foi concluído. Você pode liquidá-lo a partir dos pedidos ativos."
+          : getApiErrorMessage(error, "Falha ao gerar a conta.")
       );
     } finally {
       setIsSubmitting(false);
@@ -130,8 +130,8 @@ export function OrderCart() {
     } catch (error) {
       throw new Error(
         createdOrderId
-          ? "The order was created, but payment did not complete. Please review it in active orders before retrying."
-          : getApiErrorMessage(error, "We couldn't complete the payment.")
+          ? "O pedido foi criado, mas o pagamento não foi concluído. Revise-o nos pedidos ativos antes de tentar novamente."
+          : getApiErrorMessage(error, "Não foi possível concluir o pagamento.")
       );
     }
   };
@@ -142,10 +142,10 @@ export function OrderCart() {
       <div className="border-b border-border/70 bg-surface/95 p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex flex-col">
-            <span className="text-xs font-bold text-text-muted uppercase tracking-widest">Current Order</span>
+            <span className="text-xs font-bold text-text-muted uppercase tracking-widest">Pedido Atual</span>
             <div className="flex items-center gap-2 mt-1">
               <span className="font-extrabold text-xl">
-                {selectedTableId ? `Table ${selectedTableId.replace('t', '')}` : 'Takeaway'}
+                {selectedTableId ? `Mesa ${selectedTableId.replace('t', '')}` : 'Retirada'}
               </span>
               <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px] font-bold uppercase">
                 {orderType.replace('_', ' ')}
@@ -154,19 +154,19 @@ export function OrderCart() {
           </div>
           <Button variant="outline" size="sm" className="rounded-lg h-8 text-xs font-bold border-error/20 text-error hover:bg-error/5" onClick={clearCart}>
             <Trash2 className="w-3.5 h-3.5 mr-1.5" />
-            Clear
+            Limpar
           </Button>
         </div>
         
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-surface/80 p-2">
             <User className="w-4 h-4 text-text-muted" />
-            <span className="text-xs font-bold">Guest ({paxCount})</span>
+            <span className="text-xs font-bold">Convidado ({paxCount})</span>
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-surface/80 p-2">
             <Utensils className="w-4 h-4 text-text-muted" />
             <span className="text-xs font-bold truncate">
-              {selectedCustomer ? selectedCustomer.name : "Walk-in Customer"}
+              {selectedCustomer ? selectedCustomer.name : "Cliente sem reserva"}
             </span>
           </div>
         </div>
@@ -179,9 +179,9 @@ export function OrderCart() {
             <div className="flex h-20 w-20 items-center justify-center rounded-[var(--radius-xxl)] bg-primary/10 text-primary shadow-[var(--shadow-elevation-1)]">
               <Receipt className="h-9 w-9" />
             </div>
-            <p className="mt-5 text-lg font-black uppercase tracking-[0.24em] text-text-primary">Empty Bill</p>
+            <p className="mt-5 text-lg font-black uppercase tracking-[0.24em] text-text-primary">Conta Vazia</p>
             <p className="mt-2 max-w-xs text-sm leading-6 text-text-secondary">
-              Add a few dishes to build the live bill, then send the KOT or settle payment from the same panel.
+              Adicione alguns pratos para construir a conta ao vivo, depois envie o KOT ou liquide o pagamento do mesmo painel.
             </p>
           </div>
         ) : (
@@ -205,7 +205,7 @@ export function OrderCart() {
                     <div className="flex items-start gap-2">
                       <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">AI Recommendation</p>
+                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Recomendação de IA</p>
                         <p className="text-xs text-text-secondary leading-relaxed italic">{aiSuggestion}</p>
                       </div>
                     </div>
@@ -270,7 +270,7 @@ export function OrderCart() {
                       onClick={() => removeFromCart(item.id)}
                       className="text-[10px] font-bold text-error uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity"
                     >
-                      Remove
+                      Remover
                     </button>
                   </div>
                 </motion.div>
@@ -288,17 +288,17 @@ export function OrderCart() {
             <span>{formatCurrency(subtotal)}</span>
           </div>
           <div className="flex justify-between text-xs font-bold text-text-secondary">
-            <span>TAXES (5%)</span>
+            <span>IMPOSTOS (5%)</span>
             <span>{formatCurrency(tax)}</span>
           </div>
           {discountAmount > 0 && (
             <div className="flex justify-between text-xs font-bold text-success">
-              <span>DISCOUNT</span>
+              <span>DESCONTO</span>
               <span>-{formatCurrency(discountAmount)}</span>
             </div>
           )}
           <div className="pt-4 mt-2 border-t-2 border-dashed border-border flex justify-between items-center">
-            <span className="font-black text-sm uppercase tracking-widest">Grand Total</span>
+            <span className="font-black text-sm uppercase tracking-widest">Total Geral</span>
             <span className="font-black text-2xl text-primary">{formatCurrency(total)}</span>
           </div>
         </div>
@@ -329,7 +329,7 @@ export function OrderCart() {
             onClick={handleBill}
           >
             {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Receipt className="w-4 h-4" />}
-            Bill
+            Conta
           </Button>
           <Button 
             className="h-14 text-[10px] font-black uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20 flex flex-col gap-1" 
@@ -337,7 +337,7 @@ export function OrderCart() {
             onClick={() => setIsPaymentModalOpen(true)}
           >
             <CreditCard className="w-4 h-4" />
-            Settle
+            Liquidar
           </Button>
         </div>
       </div>

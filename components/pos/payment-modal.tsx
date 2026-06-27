@@ -57,11 +57,11 @@ function getErrorMessage(error: unknown) {
       axiosError.response?.data?.error ||
       axiosError.response?.data?.message ||
       axiosError.message ||
-      "Payment could not be completed."
+      "O pagamento não pôde ser concluído."
     );
   }
 
-  return "Payment could not be completed.";
+  return "O pagamento não pôde ser concluído.";
 }
 
 export function PaymentModal({
@@ -110,7 +110,7 @@ export function PaymentModal({
     const amountPaid = selectedMethod === "cash" ? Number(amountTendered || 0) : total;
 
     if (selectedMethod === "cash" && amountPaid < total) {
-      setErrorMessage("Cash received is less than the bill total.");
+      setErrorMessage("O dinheiro recebido é menor que o total da conta.");
       return;
     }
 
@@ -135,7 +135,7 @@ export function PaymentModal({
         colors: ["#FF6B35", "#48BB78", "#63B3ED", "#F6AD55"],
       });
 
-      toast.success(`Payment recorded for ${formatCurrency(total)}.`);
+      toast.success(`Pagamento registrado para ${formatCurrency(total)}.`);
     } catch (error) {
       const message = getErrorMessage(error);
       setErrorMessage(message);
@@ -186,16 +186,16 @@ export function PaymentModal({
                   <CheckCircle2 className="w-12 h-12" />
                 </motion.div>
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold">Payment Recorded</h2>
+                  <h2 className="text-3xl font-bold">Pagamento Registrado</h2>
                   <p className="text-sm font-bold text-success uppercase tracking-widest">
-                    Order settled successfully
+                    Pedido liquidado com sucesso
                   </p>
                 </div>
                 <p className="text-xl text-muted-foreground">
-                  Received {formatCurrency(total)} via {selectedMethod.toUpperCase()}
+                  Recebido {formatCurrency(total)} via {selectedMethod.toUpperCase()}
                 </p>
                 {completedOrderId ? (
-                  <p className="text-sm text-muted-foreground">Order ID: {completedOrderId}</p>
+                  <p className="text-sm text-muted-foreground">                  ID do Pedido: {completedOrderId}</p>
                 ) : null}
 
                 <div className="flex gap-4 mt-8">
@@ -203,12 +203,12 @@ export function PaymentModal({
                     variant="outline"
                     size="lg"
                     className="gap-2"
-                    onClick={() => toast.success("Receipt is ready to print from the order history.")}
+                    onClick={() => toast.success("O recibo está pronto para impressão no histórico de pedidos.")}
                   >
-                    <Receipt className="w-5 h-5" /> Receipt
+                    <Receipt className="w-5 h-5" /> Recibo
                   </Button>
                   <Button size="lg" onClick={onComplete}>
-                    Back to POS
+                    Voltar ao POS
                   </Button>
                 </div>
               </div>
@@ -216,14 +216,14 @@ export function PaymentModal({
               <>
                 <div className="w-full md:w-2/5 bg-surface border-r border-border flex flex-col h-full">
                   <div className="p-6 border-b border-border bg-muted/30">
-                    <h2 className="text-2xl font-bold tracking-tight mb-1">Bill Summary</h2>
+                    <h2 className="text-2xl font-bold tracking-tight mb-1">Resumo da Conta</h2>
                     <p className="text-sm text-muted-foreground capitalize">{orderLabel}</p>
                   </div>
 
                   <div className="flex-1 overflow-y-auto p-6 space-y-6">
                     <div className="space-y-3">
                       <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                        Items ({cart.length})
+                        Itens ({cart.length})
                       </h3>
                       <div className="space-y-2">
                         {cart.map((item) => (
@@ -244,12 +244,12 @@ export function PaymentModal({
                       </div>
                       {discount > 0 ? (
                         <div className="flex justify-between text-sm text-success font-medium">
-                          <span>Discount</span>
+                          <span>Desconto</span>
                           <span>-{formatCurrency(discount)}</span>
                         </div>
                       ) : null}
                       <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>Taxes (GST 5%)</span>
+                        <span>Impostos (GST 5%)</span>
                         <span>{formatCurrency(tax)}</span>
                       </div>
                     </div>
@@ -257,7 +257,7 @@ export function PaymentModal({
 
                   <div className="p-6 bg-primary/5 border-t border-primary/20">
                     <div className="flex justify-between items-end">
-                      <span className="text-lg font-semibold text-primary-dark">Grand Total</span>
+                      <span className="text-lg font-semibold text-primary-dark">Total Geral</span>
                       <span className="text-4xl font-black text-primary tracking-tight">
                         {formatCurrency(total)}
                       </span>
@@ -268,13 +268,13 @@ export function PaymentModal({
                 <div className="w-full md:w-3/5 flex flex-col h-full bg-background">
                   <div className="p-6 md:p-8 flex-1 overflow-y-auto space-y-8">
                     <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Customer</h3>
+                      <h3 className="text-lg font-semibold">Cliente</h3>
                       <div className="rounded-xl border border-border bg-surface p-4 space-y-1">
                         <p className="font-semibold">
-                          {selectedCustomer ? selectedCustomer.name : "Walk-in customer"}
+                          {selectedCustomer ? selectedCustomer.name : "Cliente sem reserva"}
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          {selectedCustomer?.phone || "No customer attached to this bill"}
+                          {selectedCustomer?.phone || "Nenhum cliente vinculado a esta conta"}
                         </p>
                         {selectedCustomer?.email ? (
                           <p className="text-sm text-muted-foreground">{selectedCustomer.email}</p>
@@ -291,14 +291,14 @@ export function PaymentModal({
                           htmlFor="gst"
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                          Requires GST Invoice
+                            Requer Fatura GST
                         </label>
                       </div>
 
                       {needsGst ? (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}>
                           <Input
-                            placeholder="Enter GSTIN..."
+                            placeholder="Insira o GSTIN..."
                             className="h-10 uppercase"
                             value={gstNumber}
                             onChange={(event) => setGstNumber(event.target.value)}
@@ -308,18 +308,18 @@ export function PaymentModal({
                     </div>
 
                     <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Payment Method</h3>
+                      <h3 className="text-lg font-semibold">Método de Pagamento</h3>
                       <div className="grid grid-cols-2 gap-4">
                         <MethodCard
                           icon={<Banknote className="w-6 h-6" />}
-                          label="Cash"
+                          label="Dinheiro"
                           shortcut="C"
                           selected={selectedMethod === "cash"}
                           onClick={() => setSelectedMethod("cash")}
                         />
                         <MethodCard
                           icon={<CreditCard className="w-6 h-6" />}
-                          label="Card"
+                          label="Cartão"
                           shortcut="D"
                           selected={selectedMethod === "card"}
                           onClick={() => setSelectedMethod("card")}
@@ -333,7 +333,7 @@ export function PaymentModal({
                         />
                         <MethodCard
                           icon={<Wallet className="w-6 h-6" />}
-                          label="Wallet"
+                          label="Carteira"
                           shortcut="W"
                           selected={selectedMethod === "wallet"}
                           onClick={() => setSelectedMethod("wallet")}
@@ -346,7 +346,7 @@ export function PaymentModal({
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
                           <div>
                             <Label htmlFor="tendered" className="text-sm text-muted-foreground mb-1 block">
-                              Amount Tendered
+                              Valor Recebido
                             </Label>
                             <div className="relative">
                               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl font-medium text-muted-foreground">
@@ -364,7 +364,7 @@ export function PaymentModal({
                           </div>
 
                           <div className="flex justify-between items-center p-4 rounded-xl bg-muted/50 border border-border">
-                            <span className="text-lg font-medium">Change Due</span>
+                            <span className="text-lg font-medium">Troco</span>
                             <span
                               className={`text-2xl font-bold ${
                                 changeAmount > 0 ? "text-primary" : "text-muted-foreground"
@@ -386,7 +386,7 @@ export function PaymentModal({
                               </Button>
                             ))}
                             <Button variant="outline" onClick={() => setAmountTendered(total.toString())}>
-                              Exact
+                              Exato
                             </Button>
                           </div>
                         </motion.div>
@@ -401,15 +401,15 @@ export function PaymentModal({
                               <Wallet className="w-5 h-5" />
                             )}
                             <p>
-                              Record a {selectedMethod.toUpperCase()} payment for{" "}
+                              Registrar um pagamento {selectedMethod.toUpperCase()} para{" "}
                               <strong>{formatCurrency(total)}</strong>.
                             </p>
                           </div>
                           <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                              <Label>Reference Number</Label>
+                              <Label>Número de Referência</Label>
                               <Input
-                                placeholder="Reference"
+                                placeholder="Referência"
                                 value={reference}
                                 onChange={(event) => setReference(event.target.value)}
                               />
@@ -417,7 +417,7 @@ export function PaymentModal({
                             <div className="space-y-2">
                               <Label>Transaction ID</Label>
                               <Input
-                                placeholder="Transaction ID"
+                                placeholder="ID da Transação"
                                 value={transactionId}
                                 onChange={(event) => setTransactionId(event.target.value)}
                               />
@@ -443,10 +443,10 @@ export function PaymentModal({
                     >
                       {isProcessing ? (
                         <>
-                          <Loader2 className="w-6 h-6 mr-2 animate-spin" /> Processing...
+                          <Loader2 className="w-6 h-6 mr-2 animate-spin" /> Processando...
                         </>
                       ) : (
-                        `Complete Payment • ${formatCurrency(total)}`
+                        `Concluir Pagamento • ${formatCurrency(total)}`
                       )}
                     </Button>
                   </div>

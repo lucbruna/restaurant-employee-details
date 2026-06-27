@@ -102,29 +102,29 @@ export function TableCard({ table, onClick, isSelected }: TableCardProps) {
           <div className="flex items-center justify-between gap-4 border-b border-border/50 pb-2 mb-1">
             <span className="font-bold text-base">Table {table.name}</span>
             <span className={`text-xs font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${getStatusColor(table.status)}`}>
-              {table.status}
+              {table.status === "available" ? "Disponível" : table.status === "occupied" ? "Ocupada" : table.status === "reserved" ? "Reservada" : table.status === "dirty" ? "Suja" : table.status}
             </span>
           </div>
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Users className="w-4 h-4" />
-            <span>Capacity: {table.capacity}</span>
+            <span>Capacidade: {table.capacity}</span>
           </div>
           
           {isOccupied && (
             <>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Users className="w-4 h-4" />
-                <span>Guests: {activeGuestCount}</span>
+                <span>Convidados: {activeGuestCount}</span>
               </div>
               {occupiedSince ? (
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Clock className="w-4 h-4" />
-                  <span>Seated: {occupiedSince}</span>
+                  <span>Sentado: {occupiedSince}</span>
                 </div>
               ) : null}
               <div className="mt-2 pt-2 border-t border-border/50 flex items-center justify-between font-bold text-foreground">
-                <span>Current Bill:</span>
+                <span>Conta Atual:</span>
                 <span className="text-primary">{formatCurrency(activeOrderTotal)}</span>
               </div>
             </>

@@ -57,7 +57,7 @@ type SettingsForm = {
 };
 
 const DEFAULT_SETTINGS: SettingsForm = {
-  restaurantName: "My Restaurant",
+  restaurantName: "Meu Restaurante",
   phone: "+91 98765 43210",
   address: "123 Main St, City",
   gstNumber: "27AAAAA0000A1Z5",
@@ -104,7 +104,7 @@ export default function SettingsPage() {
           defaultTabletLanguage: normalized.defaultTabletLanguage,
         });
       } catch {
-        toast.error("Failed to load settings");
+        toast.error("Falha ao carregar configurações");
       } finally {
         setIsLoading(false);
       }
@@ -136,9 +136,9 @@ export default function SettingsPage() {
       };
 
       await apiClient.patch("/settings", payload);
-      toast.success("Settings saved successfully");
+      toast.success("Configurações salvas com sucesso");
     } catch {
-      toast.error("Failed to save settings");
+      toast.error("Falha ao salvar configurações");
     } finally {
       setIsSaving(false);
     }
@@ -165,34 +165,34 @@ export default function SettingsPage() {
           <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-end md:justify-between md:p-8">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
-                Bhukkad Control Room
+                Sala de Controle Bhukkad
               </div>
               <div className="space-y-2">
                 <h1 className="brand-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-                  Outlet Settings
+                  Configurações do Estabelecimento
                 </h1>
                 <p className="max-w-2xl text-sm font-medium leading-relaxed text-muted-foreground md:text-base">
-                  Tune your restaurant identity, billing defaults, and service-floor features from
-                  a single Bhukkad v2 workspace.
+                  Ajuste a identidade do seu restaurante, padrões de faturamento e recursos do salão
+                  a partir de um único workspace Bhukkad v2.
                 </p>
               </div>
                 <div className="flex flex-wrap gap-3 text-sm font-medium text-muted-foreground">
                   <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                    Live outlet:{" "}
+                    Estabelecimento ativo:{" "}
                     <span className="font-semibold text-foreground">
-                      {settings.restaurantName || "Unnamed restaurant"}
+                      {settings.restaurantName || "Restaurante sem nome"}
                   </span>
                 </div>
                 <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
                   KDS:{" "}
                     <span className="font-semibold text-foreground">
-                      {settings.enableKDS ? "Enabled" : "Disabled"}
+                      {settings.enableKDS ? "Ativado" : "Desativado"}
                     </span>
                   </div>
                   <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                    Tablet ordering:{" "}
+                    Pedido Tablet:{" "}
                     <span className="font-semibold text-foreground">
-                      {tabletSubsystemEnabled ? "Enabled" : "Disabled"}
+                      {tabletSubsystemEnabled ? "Ativado" : "Desativado"}
                     </span>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export default function SettingsPage() {
               ) : (
                 <Save className="mr-2 h-4 w-4" />
               )}
-              Save Changes
+              Salvar Alterações
             </Button>
           </CardContent>
         </Card>
@@ -216,35 +216,35 @@ export default function SettingsPage() {
             className="gap-2 rounded-[var(--radius-medium)] px-4 py-2.5 font-semibold data-[state=active]:bg-card data-[state=active]:text-primary data-[state=active]:shadow-[var(--shadow-elevation-1)]"
           >
             <Store className="h-4 w-4" />
-            General
+            Geral
           </TabsTrigger>
           <TabsTrigger
             value="billing"
             className="gap-2 rounded-[var(--radius-medium)] px-4 py-2.5 font-semibold data-[state=active]:bg-card data-[state=active]:text-primary data-[state=active]:shadow-[var(--shadow-elevation-1)]"
           >
             <Receipt className="h-4 w-4" />
-            Billing &amp; Taxes
+            Faturamento e Impostos
           </TabsTrigger>
           <TabsTrigger
             value="tablet"
             className="gap-2 rounded-[var(--radius-medium)] px-4 py-2.5 font-semibold data-[state=active]:bg-card data-[state=active]:text-primary data-[state=active]:shadow-[var(--shadow-elevation-1)]"
           >
             <MonitorSmartphone className="h-4 w-4" />
-            Tablet &amp; QR
+            Tablet e QR
           </TabsTrigger>
           <TabsTrigger
             value="users"
             className="gap-2 rounded-[var(--radius-medium)] px-4 py-2.5 font-semibold data-[state=active]:bg-card data-[state=active]:text-primary data-[state=active]:shadow-[var(--shadow-elevation-1)]"
           >
             <Users className="h-4 w-4" />
-            Users &amp; Roles
+            Usuários e Funções
           </TabsTrigger>
           <TabsTrigger
             value="notifications"
             className="gap-2 rounded-[var(--radius-medium)] px-4 py-2.5 font-semibold data-[state=active]:bg-card data-[state=active]:text-primary data-[state=active]:shadow-[var(--shadow-elevation-1)]"
           >
             <Bell className="h-4 w-4" />
-            Notifications
+            Notificações
           </TabsTrigger>
         </TabsList>
 
@@ -252,42 +252,42 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardHeader>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Restaurant Identity
+                Identidade do Restaurante
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Brand, contact, and compliance details used across bills and customer touchpoints.
+                Detalhes da marca, contato e conformidade usados em contas e pontos de contato com o cliente.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Field label="Restaurant name" htmlFor="restaurantName">
+              <Field label="Nome do restaurante" htmlFor="restaurantName">
                 <Input
                   id="restaurantName"
                   value={settings.restaurantName}
                   onChange={(e) => handleChange("restaurantName", e.target.value)}
                 />
               </Field>
-              <Field label="Phone number" htmlFor="phone">
+              <Field label="Número de telefone" htmlFor="phone">
                 <Input
                   id="phone"
                   value={settings.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
                 />
               </Field>
-              <Field label="Address" htmlFor="address" className="md:col-span-2">
+              <Field label="Endereço" htmlFor="address" className="md:col-span-2">
                 <Input
                   id="address"
                   value={settings.address}
                   onChange={(e) => handleChange("address", e.target.value)}
                 />
               </Field>
-              <Field label="GST number" htmlFor="gstNumber">
+              <Field label="Número GST" htmlFor="gstNumber">
                 <Input
                   id="gstNumber"
                   value={settings.gstNumber}
                   onChange={(e) => handleChange("gstNumber", e.target.value)}
                 />
               </Field>
-              <Field label="FSSAI number" htmlFor="fssaiNumber">
+              <Field label="Número FSSAI" htmlFor="fssaiNumber">
                 <Input
                   id="fssaiNumber"
                   value={settings.fssaiNumber}
@@ -300,22 +300,22 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardHeader>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Service Floor Features
+                Recursos do Salão de Serviço
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Turn operational modes on or off without leaving the Bhukkad shell.
+                Ative ou desative modos operacionais sem sair do shell Bhukkad.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
               <FeatureToggle
-                title="Kitchen Display System (KDS)"
-                description="Send orders directly to digital kitchen screens for smoother ticket flow."
+                title="Sistema de Display da Cozinha (KDS)"
+                description="Envie pedidos diretamente para telas digitais da cozinha para um fluxo de tickets mais suave."
                 checked={settings.enableKDS}
                 onCheckedChange={(checked) => handleChange("enableKDS", checked)}
               />
               <FeatureToggle
-                title="Online Orders"
-                description="Accept aggregator or direct online orders without switching systems."
+                title="Pedidos Online"
+                description="Aceite pedidos online diretos ou de agregadores sem mudar de sistema."
                 checked={settings.enableOnlineOrders}
                 onCheckedChange={(checked) => handleChange("enableOnlineOrders", checked)}
               />
@@ -327,14 +327,14 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardHeader>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Taxes &amp; Charges
+                Impostos e Taxas
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Keep your default tax configuration consistent at the billing counter.
+                Mantenha sua configuração de imposto padrão consistente no balcão de faturamento.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Field label="Default GST rate (%)" htmlFor="taxRate">
+              <Field label="Taxa GST padrão (%)" htmlFor="taxRate">
                 <Input
                   id="taxRate"
                   type="number"
@@ -342,7 +342,7 @@ export default function SettingsPage() {
                   onChange={(e) => handleChange("taxRate", parseNumericInput(e.target.value))}
                 />
               </Field>
-              <Field label="Service charge (%)" htmlFor="serviceCharge">
+              <Field label="Taxa de serviço (%)" htmlFor="serviceCharge">
                 <Input
                   id="serviceCharge"
                   type="number"
@@ -358,16 +358,16 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardHeader>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Billing Experience
+                Experiência de Faturamento
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Fine-tune what happens the moment a bill is closed.
+                Ajuste o que acontece no momento em que uma conta é fechada.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <FeatureToggle
-                title="Auto-print Receipts"
-                description="Automatically print a guest receipt the moment payment is completed."
+                title="Impressão Automática de Recibos"
+                description="Imprimir automaticamente um recibo do cliente no momento em que o pagamento é concluído."
                 checked={settings.printReceiptAutomatically}
                 onCheckedChange={(checked) =>
                   handleChange("printReceiptAutomatically", checked)
@@ -381,23 +381,23 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardHeader>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Guest Ordering Controls
+                Controles de Pedido do Cliente
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Promote tablet and QR ordering to a stable first-class subsystem without
-                fragmenting your order pipeline.
+                Promova o pedido por tablet e QR para um subsistema estável de primeira classe sem
+                fragmentar seu pipeline de pedidos.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
               <FeatureToggle
-                title="Tablet Ordering"
-                description="Enable the dedicated public tablet ordering experience for dine-in tables."
+                title="Pedido Tablet"
+                description="Ative a experiência dedicada de pedido por tablet para mesas de refeição local."
                 checked={settings.enableTabletOrdering}
                 onCheckedChange={(checked) => handleChange("enableTabletOrdering", checked)}
               />
               <FeatureToggle
-                title="QR Ordering"
-                description="Allow the same guest ordering flow to power printed QR links at the table."
+                title="Pedido por QR"
+                description="Permita que o mesmo fluxo de pedido do cliente alimente links QR impressos na mesa."
                 checked={settings.enableQrOrdering}
                 onCheckedChange={(checked) => handleChange("enableQrOrdering", checked)}
               />
@@ -407,14 +407,14 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardHeader>
               <CardTitle className="brand-display text-3xl font-semibold">
-                Guest Experience Defaults
+                Padrões de Experiência do Cliente
               </CardTitle>
               <CardDescription className="text-sm font-medium">
-                Choose the default language guests see when the tablet or QR menu opens.
+                Escolha o idioma padrão que os clientes veem quando o cardápio do tablet ou QR é aberto.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Field label="Default guest language" htmlFor="defaultTabletLanguage">
+              <Field label="Idioma padrão do cliente" htmlFor="defaultTabletLanguage">
                 <Select
                   value={settings.defaultTabletLanguage}
                   onValueChange={(value) =>
@@ -439,7 +439,7 @@ export default function SettingsPage() {
                     <Languages className="h-4 w-4" />
                   </div>
                   <div className="space-y-1">
-                    <p className="text-sm font-semibold text-foreground">Current guest default</p>
+                    <p className="text-sm font-semibold text-foreground">Idioma padrão atual do cliente</p>
                     <p className="text-sm font-medium text-muted-foreground">
                       {TABLET_LANGUAGE_LABELS[settings.defaultTabletLanguage]}
                     </p>
@@ -452,21 +452,21 @@ export default function SettingsPage() {
           <Card className="border-border/70 bg-card/95">
             <CardContent className="grid gap-4 p-5 md:grid-cols-3">
               <StatusCard
-                title="Tablet ordering"
-                value={settings.enableTabletOrdering ? "On" : "Off"}
-                description="Dedicated guest-facing tablet shell"
+                title="Pedido Tablet"
+                value={settings.enableTabletOrdering ? "Ligado" : "Desligado"}
+                description="Shell de tablet dedicado para o cliente"
                 icon={<MonitorSmartphone className="h-4 w-4" />}
               />
               <StatusCard
-                title="QR ordering"
-                value={settings.enableQrOrdering ? "On" : "Off"}
-                description="Printed QR codes use the same public subsystem"
+                title="Pedido por QR"
+                value={settings.enableQrOrdering ? "Ligado" : "Desligado"}
+                description="Códigos QR impressos usam o mesmo subsistema público"
                 icon={<QrCode className="h-4 w-4" />}
               />
               <StatusCard
-                title="Default language"
+                title="Idioma padrão"
                 value={TABLET_LANGUAGE_LABELS[settings.defaultTabletLanguage]}
-                description="Applies when guests first open the menu"
+                description="Aplicado quando os clientes abrem o cardápio"
                 icon={<Languages className="h-4 w-4" />}
               />
             </CardContent>
@@ -475,16 +475,16 @@ export default function SettingsPage() {
 
         <TabsContent value="users" className="mt-0">
           <PlaceholderPanel
-            title="Users & Roles Management"
-            description="Staff accounts, PINs, and permission controls are ready for the same Bhukkad v2 treatment next."
-            actionLabel="Manage Users"
+            title="Gerenciamento de Usuários e Funções"
+            description="Contas de funcionários, PINs e controles de permissão estão prontos para o mesmo tratamento Bhukkad v2 em seguida."
+            actionLabel="Gerenciar Usuários"
           />
         </TabsContent>
 
         <TabsContent value="notifications" className="mt-0">
           <PlaceholderPanel
-            title="Notification Settings"
-            description="Configure sound and visual alerts for new orders, kitchen updates, and service-floor exceptions."
+            title="Configurações de Notificação"
+            description="Configure alertas sonoros e visuais para novos pedidos, atualizações da cozinha e exceções do salão."
           />
         </TabsContent>
       </Tabs>

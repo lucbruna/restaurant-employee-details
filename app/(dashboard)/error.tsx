@@ -12,15 +12,15 @@ export default function DashboardError({
   return (
     <div className="app-canvas flex min-h-screen items-center justify-center bg-background p-4 md:p-6">
       <StatePanel
-        eyebrow="Bhukkad Operations"
+        eyebrow="Operações Bhukkad"
         tone="error"
-        title="This operating surface could not finish loading."
+        title="Esta superfície operacional não pôde terminar de carregar."
         description={
           error?.message ||
-          "We kept the dashboard shell online and isolated the failure to this route. Retry the panel, or drop back to the main dashboard while the fallback keeps the rest of the workspace available."
+          "Mantivemos o shell do painel online e isolamos a falha nesta rota. Tente novamente o painel ou volte ao painel principal enquanto o fallback mantém o resto do workspace disponível."
         }
-        primaryAction={{ label: "Retry surface", onClick: reset }}
-        secondaryAction={{ label: "Back to dashboard", href: "/dashboard", variant: "outline" }}
+        primaryAction={{ label: "Tentar novamente", onClick: reset }}
+        secondaryAction={{ label: "Voltar ao painel", href: "/dashboard", variant: "outline" }}
         className="w-full max-w-5xl"
       />
     </div>

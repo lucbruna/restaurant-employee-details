@@ -40,7 +40,7 @@ export default function TablesPage() {
           setActiveSection(res.data.sections[0].id);
         }
       } catch (error) {
-        toast.error("Failed to load tables");
+        toast.error("Falha ao carregar mesas");
       } finally {
         setIsLoading(false);
       }
@@ -75,9 +75,9 @@ export default function TablesPage() {
     try {
       await apiClient.post("/tables/bulk", { tables });
       setHasChanges(false);
-      toast.success("Table layout saved");
+      toast.success("Layout de mesas salvo");
     } catch (error) {
-      toast.error("Failed to save layout");
+      toast.error("Falha ao salvar layout");
     } finally {
       setIsSaving(false);
     }
@@ -120,7 +120,7 @@ export default function TablesPage() {
       {/* Toolbar */}
       <div className="flex items-center justify-between p-4 bg-surface border-b border-border">
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold">Table Layout</h1>
+          <h1 className="text-2xl font-bold">Layout de Mesas</h1>
           <div className="h-6 w-px bg-border mx-2" />
           <div className="flex bg-muted p-1 rounded-lg">
             {sections.map(sec => (
@@ -133,17 +133,17 @@ export default function TablesPage() {
               </button>
             ))}
           </div>
-          <Button variant="outline" size="sm" className="ml-2"><Plus className="w-4 h-4 mr-2" /> Section</Button>
+          <Button variant="outline" size="sm" className="ml-2"><Plus className="w-4 h-4 mr-2" /> Seção</Button>
         </div>
 
         <div className="flex items-center gap-3">
           <AIChatbot inline />
           <Button variant="outline" onClick={addTable}>
-            <Plus className="w-4 h-4 mr-2" /> Add Table
+            <Plus className="w-4 h-4 mr-2" /> Adicionar Mesa
           </Button>
           <Button onClick={handleSave} disabled={!hasChanges || isSaving} className="relative">
             {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-            Save Layout
+            Salvar Layout
             {hasChanges && <span className="absolute -top-1 -right-1 w-3 h-3 bg-warning rounded-full border-2 border-surface" />}
           </Button>
         </div>
@@ -168,14 +168,14 @@ export default function TablesPage() {
         {selectedTable && (
           <div className="w-80 bg-surface border-l border-border flex flex-col shadow-xl z-10">
             <div className="p-4 border-b border-border flex items-center justify-between bg-muted/30">
-              <h3 className="font-semibold">Table Properties</h3>
+              <h3 className="font-semibold">Propriedades da Mesa</h3>
               <button onClick={() => setSelectedTable(null)} className="text-text-muted hover:text-text-primary">✕</button>
             </div>
             
             <ScrollArea className="flex-1 p-6">
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Table Name</label>
+                  <label className="text-sm font-medium text-text-secondary">Nome da Mesa</label>
                   <Input 
                     value={selectedTable.name} 
                     onChange={(e) => updateSelectedTable({ name: e.target.value })}
@@ -183,7 +183,7 @@ export default function TablesPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Capacity (Pax)</label>
+                  <label className="text-sm font-medium text-text-secondary">Capacidade (Pax)</label>
                   <div className="flex items-center border border-input rounded-md overflow-hidden">
                     <button className="px-3 py-2 bg-muted hover:bg-border transition-colors" onClick={() => updateSelectedTable({ capacity: Math.max(1, selectedTable.capacity - 1) })}>-</button>
                     <div className="flex-1 text-center font-semibold">{selectedTable.capacity}</div>
@@ -192,7 +192,7 @@ export default function TablesPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Shape</label>
+                  <label className="text-sm font-medium text-text-secondary">Forma</label>
                   <div className="grid grid-cols-3 gap-2">
                     <ShapeButton 
                       icon={<Square className="w-5 h-5" />} 
@@ -217,13 +217,13 @@ export default function TablesPage() {
                     className="w-full bg-primary hover:bg-primary-dark"
                     onClick={() => setShowReservationModal(true)}
                   >
-                    Reserve Table
+                    Reservar Mesa
                   </Button>
                   <Button 
                     variant="destructive" 
                     className="w-full"
                     onClick={async () => {
-                      if (!confirm("Are you sure you want to delete this table?")) return;
+                      if (!confirm("Tem certeza que deseja excluir esta mesa?")) return;
                       try {
                         // If it's a newly added table (not saved yet), we might not need to call API
                         // But calling it is fine, it will just 404 or we can check if it starts with 't-'
@@ -233,13 +233,13 @@ export default function TablesPage() {
                         setTables(tables.filter(t => t.id !== selectedTable.id));
                         setSelectedTable(null);
                         setHasChanges(true);
-                        toast.success("Table deleted");
+                        toast.success("Mesa excluída");
                       } catch (error) {
-                        toast.error("Failed to delete table");
+                        toast.error("Falha ao excluir mesa");
                       }
                     }}
                   >
-                    Delete Table
+                    Excluir Mesa
                   </Button>
                 </div>
               </div>

@@ -28,7 +28,7 @@ export default function MenuPage() {
       setCategories(catsRes.data);
       setItems(itemsRes.data);
     } catch (error) {
-      toast.error("Failed to load menu data");
+      toast.error("Falha ao carregar dados do cardápio");
     } finally {
       setIsLoading(false);
     }
@@ -66,15 +66,15 @@ export default function MenuPage() {
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
                   <Utensils className="h-3.5 w-3.5" />
-                  Bhukkad Menu Studio
+                  Estúdio de Cardápio Bhukkad
                 </div>
                 <div>
                   <h1 className="brand-display text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
-                  Menu Management
+                  Gerenciamento de Cardápio
                   </h1>
                   <p className="mt-2 max-w-3xl text-sm leading-7 text-text-secondary sm:text-base">
-                    Configure categories, items, and modifiers with the same calmer, high-contrast
-                    surface language that keeps the POS header readable during service.
+                    Configure categorias, itens e modificadores com a mesma linguagem de superfície
+                    calma e de alto contraste que mantém o cabeçalho do POS legível durante o serviço.
                   </p>
                 </div>
               </div>
@@ -82,14 +82,14 @@ export default function MenuPage() {
               <div className="flex flex-wrap items-center gap-3">
                 <Button className="font-bold shadow-lg shadow-primary/20">
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Item
+                  Adicionar Item
                 </Button>
                 <Button
                   variant="outline"
                   className="border-border/70 bg-background/90 font-bold shadow-[var(--shadow-elevation-1)]"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Category
+                  Adicionar Categoria
                 </Button>
               </div>
             </div>
@@ -100,15 +100,15 @@ export default function MenuPage() {
           <Tabs defaultValue="items" className="w-full">
             <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <TabsList className="h-auto flex-wrap gap-2 rounded-[var(--radius-large)] border border-border/70 bg-card/95 p-1 shadow-[var(--shadow-elevation-1)]">
-                <TabsTrigger value="items" className="font-bold px-6">Items ({items.length})</TabsTrigger>
-                <TabsTrigger value="categories" className="font-bold px-6">Categories ({categories.length})</TabsTrigger>
-                <TabsTrigger value="modifiers" className="font-bold px-6">Modifiers</TabsTrigger>
+                <TabsTrigger value="items" className="font-bold px-6">Itens ({items.length})</TabsTrigger>
+                <TabsTrigger value="categories" className="font-bold px-6">Categorias ({categories.length})</TabsTrigger>
+                <TabsTrigger value="modifiers" className="font-bold px-6">Modificadores</TabsTrigger>
               </TabsList>
 
               <div className="relative w-full lg:w-64">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                 <Input 
-                  placeholder="Search menu..." 
+                  placeholder="Buscar no cardápio..." 
                   className="pl-9 border-border/70 bg-card/95"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -136,11 +136,11 @@ export default function MenuPage() {
                                     item.foodType === "veg" ? "bg-success" : "bg-error"
                                   }`}
                                 />
-                                {category?.name || "Uncategorized"}
+                                {category?.name || "Sem categoria"}
                               </div>
                               {item.isBestseller ? (
                                 <div className="rounded-full bg-warning px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-secondary-foreground shadow-sm">
-                                  Bestseller
+                                  Mais Vendido
                                 </div>
                               ) : null}
                               {item.prepTimeMinutes ? (
@@ -153,7 +153,7 @@ export default function MenuPage() {
                               {item.name}
                             </h3>
                             <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-                              {item.shortCode || "Menu Item"}
+                              {item.shortCode || "Item do Cardápio"}
                             </p>
                           </div>
                           <Button
@@ -170,13 +170,13 @@ export default function MenuPage() {
                             {formatCurrency(item.basePrice)}
                           </span>
                           {item.isActive ? (
-                            <Badge className="text-[10px] font-bold uppercase">Active</Badge>
+                            <Badge className="text-[10px] font-bold uppercase">Ativo</Badge>
                           ) : (
                             <Badge
                               variant="outline"
                               className="border-border/70 bg-muted/70 text-[10px] font-bold uppercase text-text-secondary"
                             >
-                              Inactive
+                              Inativo
                             </Badge>
                           )}
                         </div>
@@ -202,7 +202,7 @@ export default function MenuPage() {
                         <div>
                           <h3 className="font-bold text-text-primary">{cat.name}</h3>
                           <p className="text-[10px] font-bold uppercase tracking-wider text-text-muted">
-                            {items.filter(i => i.categoryId === cat.id).length} Items
+                            {items.filter(i => i.categoryId === cat.id).length} Itens
                           </p>
                         </div>
                       </div>

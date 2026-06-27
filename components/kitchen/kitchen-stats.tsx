@@ -14,25 +14,25 @@ export function KitchenStats({ pendingCount, preparingCount, readyCount, avgPrep
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       <StatCard 
-        title="Pending Tickets" 
+        title="Comandas Pendentes" 
         value={pendingCount} 
         icon={<Clock className="w-5 h-5 text-warning" />} 
         color="border-warning/20 bg-warning/5"
       />
       <StatCard 
-        title="Cooking Now" 
+        title="Cozinhando Agora" 
         value={preparingCount} 
         icon={<ChefHat className="w-5 h-5 text-info" />} 
         color="border-info/20 bg-info/5"
       />
       <StatCard 
-        title="Ready for Pickup" 
+        title="Pronto para Retirada" 
         value={readyCount} 
         icon={<CheckCircle2 className="w-5 h-5 text-success" />} 
         color="border-success/20 bg-success/5"
       />
       <StatCard 
-        title="Avg Prep Time" 
+        title="Tempo Médio" 
         value={avgPrepTime} 
         icon={<AlertCircle className="w-5 h-5 text-primary" />} 
         color="border-primary/20 bg-primary/5"

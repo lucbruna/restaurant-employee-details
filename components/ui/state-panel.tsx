@@ -83,7 +83,7 @@ function renderAction(action: StateAction) {
 }
 
 export function StatePanel({
-  eyebrow = "Bhukkad Service Layer",
+  eyebrow = "Sistema do Restaurante",
   title,
   description,
   tone = "empty",

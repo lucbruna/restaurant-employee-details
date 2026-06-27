@@ -52,8 +52,8 @@ export default function TabletOrderingDashboardPage() {
         setTables(tablesRes.data?.tables ?? []);
         setSections(tablesRes.data?.sections ?? []);
       } catch (error) {
-        console.error("Failed to load tablet ordering dashboard", error);
-        toast.error("Unable to load tablet ordering data.");
+        console.error("Falha ao carregar painel de pedido tablet", error);
+        toast.error("Não foi possível carregar dados de pedido tablet.");
       } finally {
         setIsLoading(false);
       }
@@ -76,9 +76,9 @@ export default function TabletOrderingDashboardPage() {
       await navigator.clipboard.writeText(
         `${window.location.origin}${getTabletOrderingHref(tableId)}`,
       );
-      toast.success("Guest ordering link copied.");
+      toast.success("Link de pedido do cliente copiado.");
     } catch {
-      toast.error("Unable to copy the link right now.");
+      toast.error("Não foi possível copiar o link agora.");
     }
   }
 
@@ -101,32 +101,32 @@ export default function TabletOrderingDashboardPage() {
           <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-end md:justify-between md:p-8">
             <div className="space-y-4">
               <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
-                Tablet / QR Ordering
+                Pedido Tablet / QR
               </div>
               <div className="space-y-2">
                 <h1 className="brand-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-                  First-Class Guest Ordering
+                  Pedido do Cliente de Primeira Classe
                 </h1>
                 <p className="max-w-2xl text-sm font-medium leading-relaxed text-muted-foreground md:text-base">
-                  Manage every public ordering touchpoint from one Bhukkad workspace, with
-                  stable links per table and shared order creation under the hood.
+                  Gerencie todos os pontos de contato de pedidos públicos de um workspace Bhukkad, com
+                  links estáveis por mesa e criação de pedidos compartilhada internamente.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 text-sm font-medium text-muted-foreground">
                 <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                  Tablet ordering:{" "}
+                  Pedido Tablet:{" "}
                   <span className="font-semibold text-foreground">
-                    {settings.enableTabletOrdering ? "Enabled" : "Disabled"}
+                    {settings.enableTabletOrdering ? "Ativado" : "Desativado"}
                   </span>
                 </div>
                 <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                  QR ordering:{" "}
+                  Pedido por QR:{" "}
                   <span className="font-semibold text-foreground">
-                    {settings.enableQrOrdering ? "Enabled" : "Disabled"}
+                    {settings.enableQrOrdering ? "Ativado" : "Desativado"}
                   </span>
                 </div>
                 <div className="rounded-full border border-border/70 bg-card/80 px-4 py-2">
-                  Default language:{" "}
+                  Idioma padrão:{" "}
                   <span className="font-semibold text-foreground">
                     {TABLET_LANGUAGE_LABELS[settings.defaultTabletLanguage]}
                   </span>
@@ -137,7 +137,7 @@ export default function TabletOrderingDashboardPage() {
             <Button asChild className="min-w-44">
               <Link href="/settings">
                 <Settings2 className="mr-2 h-4 w-4" />
-                Update Settings
+                Atualizar Configurações
               </Link>
             </Button>
           </CardContent>
@@ -148,16 +148,16 @@ export default function TabletOrderingDashboardPage() {
             <CardContent className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
               <div className="space-y-1">
                 <p className="text-sm font-black uppercase tracking-[0.2em] text-amber-700">
-                  Guest ordering is paused
+                  Pedido do cliente está pausado
                 </p>
                 <p className="text-sm font-medium leading-relaxed text-amber-900/80">
-                  Turn on tablet ordering, QR ordering, or both in settings before sharing links
-                  with guests.
+                  Ative o pedido tablet, pedido por QR ou ambos nas configurações antes de compartilhar
+                  links com os clientes.
                 </p>
               </div>
               <Button asChild variant="outline" className="border-amber-300 bg-white">
                 <Link href="/settings">
-                  Open Settings
+                  Abrir Configurações
                   <ArrowUpRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -167,21 +167,21 @@ export default function TabletOrderingDashboardPage() {
 
         <div className="grid gap-4 md:grid-cols-3">
           <MetricCard
-            title="Active public subsystem"
-            value={isSubsystemEnabled ? "Live" : "Paused"}
-            description="Shared createOrder flow keeps tablet and QR traffic on the same stable order pipeline."
+            title="Subsistema público ativo"
+            value={isSubsystemEnabled ? "Ativo" : "Pausado"}
+            description="O fluxo createOrder compartilhado mantém o tráfego de tablet e QR no mesmo pipeline de pedidos estável."
             icon={<MonitorSmartphone className="h-5 w-5" />}
           />
           <MetricCard
-            title="Tables ready for guest ordering"
+            title="Mesas prontas para pedido do cliente"
             value={`${tables.length}`}
-            description="Every table gets a dedicated guest URL that can power a tablet or printed QR."
+            description="Cada mesa recebe uma URL de cliente dedicada que pode alimentar um tablet ou QR impresso."
             icon={<QrCode className="h-5 w-5" />}
           />
           <MetricCard
-            title="Section coverage"
+            title="Cobertura de seções"
             value={`${sections.length || (unassignedTables.length > 0 ? 1 : 0)}`}
-            description="Use sections to organize links and tablet deployments floor by floor."
+            description="Use seções para organizar links e implantações de tablet andar por andar."
             icon={<Settings2 className="h-5 w-5" />}
           />
         </div>
@@ -199,7 +199,7 @@ export default function TabletOrderingDashboardPage() {
 
           {unassignedTables.length > 0 ? (
             <SectionBlock
-              title="Unassigned Tables"
+              title="Mesas Não Atribuídas"
               tables={unassignedTables}
               onCopy={copyTableLink}
               onOpen={openTableLink}
@@ -257,9 +257,9 @@ function SectionBlock({
     <section className="space-y-4">
       <div>
         <h2 className="brand-display text-3xl font-semibold text-foreground">{title}</h2>
-        <p className="text-sm font-medium text-muted-foreground">
-          Open each link as a tablet view or print it as a QR destination for guests.
-        </p>
+          <p className="text-sm font-medium text-muted-foreground">
+            Abra cada link como uma visualização de tablet ou imprima como destino QR para os clientes.
+          </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -272,7 +272,7 @@ function SectionBlock({
                     {table.name}
                   </CardTitle>
                   <CardDescription className="text-sm font-medium">
-                    Capacity {table.capacity}
+                    Capacidade {table.capacity}
                   </CardDescription>
                 </div>
                 <div className="rounded-full border border-border/70 bg-surface-container-high px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-muted-foreground">
@@ -287,7 +287,7 @@ function SectionBlock({
               <div className="flex flex-wrap gap-2">
                 <Button onClick={() => onOpen(table.id)} className="flex-1 min-w-36">
                   <ArrowUpRight className="mr-2 h-4 w-4" />
-                  Open Guest View
+                  Abrir Visão do Cliente
                 </Button>
                 <Button
                   variant="outline"
@@ -295,7 +295,7 @@ function SectionBlock({
                   className="flex-1 min-w-36"
                 >
                   <Copy className="mr-2 h-4 w-4" />
-                  Copy Link
+                  Copiar Link
                 </Button>
               </div>
             </CardContent>

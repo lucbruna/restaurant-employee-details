@@ -21,7 +21,7 @@ export default function InventoryPage() {
         const res = await apiClient.get("/inventory");
         setItems(res.data);
       } catch (error) {
-        toast.error("Failed to load inventory");
+        toast.error("Falha ao carregar estoque");
       } finally {
         setIsLoading(false);
       }
@@ -37,13 +37,13 @@ export default function InventoryPage() {
   const lowStockCount = items.filter((item) => item.currentStock <= (item.minimumStock || 0)).length;
 
   const deleteItem = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this item?")) return;
+    if (!confirm("Tem certeza que deseja excluir este item?")) return;
     try {
       await apiClient.delete(`/inventory/${id}`);
       setItems(items.filter(i => i.id !== id));
-      toast.success("Item deleted");
+      toast.success("Item excluído");
     } catch (error) {
-      toast.error("Failed to delete item");
+      toast.error("Falha ao excluir item");
     }
   };
 
@@ -69,23 +69,23 @@ export default function InventoryPage() {
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
                   <AlertTriangle className="h-3.5 w-3.5" />
-                  Bhukkad Stockroom
+                  Almoxarifado Bhukkad
                 </div>
                 <div className="space-y-2">
                   <h1 className="brand-display text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
-                    Inventory control with calmer operating contrast
+                    Controle de estoque com contraste operacional mais calmo
                   </h1>
                   <p className="max-w-3xl text-sm leading-7 text-text-secondary sm:text-base">
-                    Review ingredient levels, SKU coverage, and low-stock risk from the same
-                    polished dashboard language used everywhere else.
+                    Revise níveis de ingredientes, cobertura de SKU e risco de estoque baixo com a mesma
+                    linguagem de painel refinada usada em todos os outros lugares.
                   </p>
                 </div>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                <SummaryTile label="Stock Items" value={items.length.toString()} />
-                <SummaryTile label="Low Stock" value={lowStockCount.toString()} />
-                <SummaryTile label="Visible" value={filteredItems.length.toString()} />
+                <SummaryTile label="Itens em Estoque" value={items.length.toString()} />
+                <SummaryTile label="Estoque Baixo" value={lowStockCount.toString()} />
+                <SummaryTile label="Visível" value={filteredItems.length.toString()} />
               </div>
             </div>
 
@@ -93,7 +93,7 @@ export default function InventoryPage() {
               <div className="relative w-full lg:max-w-md">
                 <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
                 <Input
-                  placeholder="Search item name or SKU..."
+                  placeholder="Buscar nome do item ou SKU..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="h-12 rounded-[var(--radius-large)] border-border/70 bg-background pl-11 text-sm font-medium"
@@ -101,7 +101,7 @@ export default function InventoryPage() {
               </div>
               <Button className="gap-2 font-bold shadow-lg shadow-primary/15">
                 <Plus className="h-4 w-4" />
-                Add Item
+                Adicionar Item
               </Button>
             </div>
           </div>
@@ -111,20 +111,20 @@ export default function InventoryPage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/40 hover:bg-muted/40">
-                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Name</TableHead>
+                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Nome</TableHead>
                 <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">SKU</TableHead>
-                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Category</TableHead>
-                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Quantity</TableHead>
-                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Unit</TableHead>
+                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Categoria</TableHead>
+                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Quantidade</TableHead>
+                <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Unidade</TableHead>
                 <TableHead className="text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Status</TableHead>
-                <TableHead className="text-right text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Actions</TableHead>
+                <TableHead className="text-right text-[11px] font-black uppercase tracking-[0.18em] text-text-muted">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredItems.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={7} className="h-32 text-center text-text-muted">
-                    No inventory items found.
+                    Nenhum item de estoque encontrado.
                   </TableCell>
                 </TableRow>
               ) : (
@@ -138,7 +138,7 @@ export default function InventoryPage() {
                     </TableCell>
                     <TableCell>
                       <Badge variant="outline" className="bg-surface">
-                        {item.category || "Uncategorized"}
+                        {item.category || "Sem categoria"}
                       </Badge>
                     </TableCell>
                     <TableCell className="font-semibold text-text-primary">
@@ -151,11 +151,11 @@ export default function InventoryPage() {
                       {item.currentStock <= (item.minimumStock || 0) ? (
                         <Badge variant="outline" className="gap-1 border-destructive/20 bg-destructive/10 text-destructive">
                           <AlertTriangle className="h-3 w-3" />
-                          Low Stock
+                          Estoque Baixo
                         </Badge>
                       ) : (
                         <Badge variant="outline" className="border-success/20 bg-success/10 text-success">
-                          In Stock
+                          Em Estoque
                         </Badge>
                       )}
                     </TableCell>

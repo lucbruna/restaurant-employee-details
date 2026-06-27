@@ -80,7 +80,7 @@ export default function POSPage() {
     } catch (error) {
       const message = getApiErrorMessage(
         error,
-        "The POS workspace could not load its live menu and table data."
+        "O workspace do POS não pôde carregar seus dados de cardápio e mesas."
       );
       console.error("[POS_LOAD_DATA]", error);
       setLoadError(message);
@@ -107,7 +107,7 @@ export default function POSPage() {
         <div className="app-panel-subtle flex items-center gap-3 rounded-[var(--radius-xl)] px-5 py-4">
           <Loader2 className="h-5 w-5 animate-spin text-primary" />
           <span className="text-sm font-semibold text-text-primary">
-            Preparing the service console
+            Preparando o console de serviço
           </span>
         </div>
       </div>
@@ -118,12 +118,12 @@ export default function POSPage() {
     return (
       <div className="app-canvas flex flex-1 items-center justify-center p-6">
         <StatePanel
-          eyebrow="POS bootstrap interrupted"
-          title="The service console did not come online"
-          description={`${loadError} Retry the sync to bring back tables, menus, and ordering controls.`}
+          eyebrow="Inicialização do POS interrompida"
+          title="O console de serviço não ficou online"
+          description={`${loadError} Tente a sincronização novamente para restaurar mesas, cardápios e controles de pedidos.`}
           tone="error"
-          primaryAction={{ label: "Retry POS sync", onClick: () => void loadData() }}
-          secondaryAction={{ label: "Return to dashboard", href: "/dashboard", variant: "outline" }}
+          primaryAction={{ label: "Tentar sincronização POS", onClick: () => void loadData() }}
+          secondaryAction={{ label: "Voltar ao painel", href: "/dashboard", variant: "outline" }}
           className="w-full max-w-3xl"
         />
       </div>
@@ -139,31 +139,31 @@ export default function POSPage() {
             <div className="space-y-3">
               <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.24em] text-primary">
                 <Utensils className="h-3.5 w-3.5" />
-                Bhukkad Service Console
+                Console de Serviço Bhukkad
               </div>
               <div>
                 <h1 className="brand-display text-3xl font-semibold tracking-tight text-text-primary">
-                  Faster service, cleaner table control
+                  Serviço mais rápido, controle de mesas mais limpo
                 </h1>
                 <p className="mt-2 max-w-3xl text-sm leading-7 text-text-secondary">
-                  Move between dine-in, takeaway, and delivery with one resilient workspace built
-                  for floor speed and polished demo moments.
+                  Alterne entre refeição no local, retirada e entrega com um workspace resiliente construído
+                  para velocidade operacional e momentos de demonstração refinados.
                 </p>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <StatusPill label="Live sync" intent="success" pulsing />
+              <StatusPill label="Sincronização ativa" intent="success" pulsing />
               <StatusPill
                 label={
                   selectedTableId
-                    ? `Table ${selectedTableId.replace("t", "")} selected`
-                    : "No table selected"
+                    ? `Mesa ${selectedTableId.replace("t", "")} selecionada`
+                    : "Nenhuma mesa selecionada"
                 }
                 intent={selectedTableId ? "default" : "muted"}
               />
               <StatusPill
-                label={selectedCustomer ? selectedCustomer.name : "Walk-in flow"}
+                label={selectedCustomer ? selectedCustomer.name : "Fluxo sem cliente"}
                 intent={selectedCustomer ? "default" : "muted"}
               />
             </div>
@@ -175,19 +175,19 @@ export default function POSPage() {
                 <OrderTypeTab
                   active={orderType === "dine_in"}
                   onClick={() => setOrderType("dine_in")}
-                  label="Dine in"
+                  label="Refeição Local"
                   icon={<Utensils className="h-4 w-4" />}
                 />
                 <OrderTypeTab
                   active={orderType === "takeaway"}
                   onClick={() => setOrderType("takeaway")}
-                  label="Takeaway"
+                  label="Retirada"
                   icon={<ShoppingBag className="h-4 w-4" />}
                 />
                 <OrderTypeTab
                   active={orderType === "delivery"}
                   onClick={() => setOrderType("delivery")}
-                  label="Delivery"
+                  label="Entrega"
                   icon={<Truck className="h-4 w-4" />}
                 />
               </div>
@@ -206,8 +206,8 @@ export default function POSPage() {
                   >
                     <LayoutGrid className="mr-2 h-4 w-4" />
                     {selectedTableId
-                      ? `Table ${selectedTableId.replace("t", "")}`
-                      : "Select table"}
+                    ? `Mesa ${selectedTableId.replace("t", "")}`
+                    : "Selecionar mesa"}
                   </Button>
 
                   {selectedTableId ? (
@@ -224,7 +224,7 @@ export default function POSPage() {
                       }
                     >
                       <QrCode className="mr-2 h-4 w-4" />
-                      Open guest view
+                      Abrir visão do cliente
                     </Button>
                   ) : null}
                 </>
@@ -241,14 +241,14 @@ export default function POSPage() {
                 onClick={() => setShowCustomerModal(true)}
               >
                 <UserPlus className="mr-2 h-4 w-4" />
-                {selectedCustomer ? selectedCustomer.name : "Attach customer"}
+                {selectedCustomer ? selectedCustomer.name : "Vincular cliente"}
               </Button>
             </div>
 
             <div className="flex items-center gap-2 self-start xl:self-auto">
               {loadError ? (
                 <div className="rounded-full border border-error/20 bg-error/10 px-3 py-2 text-[11px] font-black uppercase tracking-[0.2em] text-error">
-                  Sync degraded
+                  Sincronização degradada
                 </div>
               ) : null}
               <AIChatbot inline compact />
@@ -256,16 +256,16 @@ export default function POSPage() {
                 onClick={() => void loadData()}
                 disabled={isRefreshing}
                 icon={<RefreshCw className={cn("h-4 w-4", isRefreshing && "animate-spin")} />}
-                label="Refresh service data"
+                label="Atualizar dados de serviço"
               />
               <QuickActionButton
                 icon={<Search className="h-4 w-4" />}
-                label="Search coming soon"
+                label="Busca em breve"
                 disabled
               />
               <QuickActionButton
                 icon={<Bell className="h-4 w-4" />}
-                label="Alerts coming soon"
+                label="Alertas em breve"
                 disabled
               />
             </div>
@@ -274,8 +274,7 @@ export default function POSPage() {
 
         {loadError && items.length > 0 ? (
           <div className="rounded-[var(--radius-large)] border border-error/20 bg-error/8 px-4 py-3 text-sm text-error shadow-[var(--shadow-elevation-1)]">
-            {loadError} Existing menu data is still available, and you can retry the sync at any
-            time.
+            {loadError} Os dados existentes do cardápio ainda estão disponíveis, e você pode tentar a sincronização a qualquer momento.
           </div>
         ) : null}
 
@@ -283,7 +282,7 @@ export default function POSPage() {
           <div className="app-panel hidden w-28 flex-shrink-0 overflow-hidden rounded-[var(--radius-xxl)] border lg:flex xl:w-32">
             <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-surface/95">
               <CategoryRailItem
-                label="All"
+                label="Todas"
                 emoji="🍽️"
                 active={activeCategory === "all"}
                 onClick={() => setActiveCategory("all")}
@@ -319,10 +318,10 @@ export default function POSPage() {
           <div className="flex items-center justify-between border-b border-border/70 px-6 py-5">
             <div>
               <DialogTitle className="text-2xl font-semibold tracking-tight text-text-primary">
-                Table management
+                Gerenciamento de mesas
               </DialogTitle>
               <p className="mt-1 text-sm text-text-secondary">
-                Select a table to start or continue service.
+                Selecione uma mesa para iniciar ou continuar o serviço.
               </p>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setShowFloorPlan(false)}>
