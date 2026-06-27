@@ -1,14 +1,38 @@
 import { NextResponse } from "next/server"
 import mysql from "mysql2/promise"
+import Database from "better-sqlite3"
+import path from "path"
+import fs from "fs"
 
-// This will work with both Supabase, Neon, and MySQL databases
-// The user just needs to connect their preferred database
+let mysqlPool: mysql.Pool | null = null
+let sqliteDb: Database.Database | null = null
 
-let pool: mysql.Pool | null = null
+function getSqliteDb() {
+  if (!sqliteDb) {
+    const dbPath = process.env.SQLITE_PATH || path.join(process.cwd(), "restaurant_workers.db")
+    sqliteDb = new Database(dbPath)
+    sqliteDb.pragma("journal_mode = WAL")
+    sqliteDb.exec(`
+      CREATE TABLE IF NOT EXISTS restaurant_workers (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        phone TEXT NOT NULL,
+        position TEXT NOT NULL,
+        hourly_rate REAL NOT NULL,
+        start_date TEXT NOT NULL,
+        created_at TEXT DEFAULT (datetime('now')),
+        updated_at TEXT DEFAULT (datetime('now'))
+      )
+    `)
+  }
+  return sqliteDb
+}
 
-function getPool() {
-  if (!pool) {
-    pool = mysql.createPool({
+function getMysqlPool() {
+  if (!mysqlPool) {
+    mysqlPool = mysql.createPool({
       host: process.env.MYSQL_HOST,
       user: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
@@ -19,31 +43,27 @@ function getPool() {
       queueLimit: 0,
     })
   }
-  return pool
+  return mysqlPool
 }
+
+type DbType = "sqlite" | "supabase" | "neon" | "mysql"
+
+function getDbType(): DbType {
+  if (process.env.SQLITE_PATH) return "sqlite"
+  if (process.env.SUPABASE_URL) return "supabase"
+  if (process.env.DATABASE_URL) return "neon"
+  if (process.env.MYSQL_HOST) return "mysql"
+  return "sqlite"
+}
+
+const dbType = getDbType()
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
     const { firstName, lastName, email, phone, position, hourlyRate, startDate } = body
 
-    // Check if database is configured
-    const isSupabase = !!process.env.SUPABASE_URL
-    const isNeon = !!process.env.DATABASE_URL
-    const isMySQL = !!process.env.MYSQL_HOST
-
-    if (!isSupabase && !isNeon && !isMySQL) {
-      return NextResponse.json(
-        {
-          error:
-            "Database not configured. Please connect Supabase, Neon, or MySQL from the Connect section in the sidebar.",
-        },
-        { status: 500 },
-      )
-    }
-
-    if (isSupabase) {
-      // Use Supabase
+    if (dbType === "supabase") {
       const { createClient } = await import("@supabase/supabase-js")
       const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!)
 
@@ -68,8 +88,9 @@ export async function POST(request: Request) {
       }
 
       return NextResponse.json({ worker: data[0] }, { status: 201 })
-    } else if (isNeon) {
-      // Use Neon
+    }
+
+    if (dbType === "neon") {
       const { neon } = await import("@neondatabase/serverless")
       const sql = neon(process.env.DATABASE_URL!)
 
@@ -80,8 +101,10 @@ export async function POST(request: Request) {
       `
 
       return NextResponse.json({ worker: result[0] }, { status: 201 })
-    } else if (isMySQL) {
-      const connection = await getPool().getConnection()
+    }
+
+    if (dbType === "mysql") {
+      const connection = await getMysqlPool().getConnection()
 
       const [result] = await connection.execute(
         `INSERT INTO restaurant_workers (first_name, last_name, email, phone, position, hourly_rate, start_date)
@@ -96,6 +119,17 @@ export async function POST(request: Request) {
 
       return NextResponse.json({ worker: (workers as any[])[0] }, { status: 201 })
     }
+
+    // SQLite (default)
+    const db = getSqliteDb()
+    const stmt = db.prepare(`
+      INSERT INTO restaurant_workers (first_name, last_name, email, phone, position, hourly_rate, start_date)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `)
+    const result = stmt.run(firstName, lastName, email, phone, position, Number.parseFloat(hourlyRate), startDate)
+    const worker = db.prepare("SELECT * FROM restaurant_workers WHERE id = ?").get(result.lastInsertRowid)
+
+    return NextResponse.json({ worker }, { status: 201 })
   } catch (error) {
     console.error("Error adding worker:", error)
     return NextResponse.json(
@@ -107,24 +141,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    // Check if database is configured
-    const isSupabase = !!process.env.SUPABASE_URL
-    const isNeon = !!process.env.DATABASE_URL
-    const isMySQL = !!process.env.MYSQL_HOST
-
-    if (!isSupabase && !isNeon && !isMySQL) {
-      return NextResponse.json(
-        {
-          error:
-            "Database not configured. Please connect Supabase, Neon, or MySQL from the Connect section in the sidebar.",
-          workers: [],
-        },
-        { status: 200 },
-      )
-    }
-
-    if (isSupabase) {
-      // Use Supabase
+    if (dbType === "supabase") {
       const { createClient } = await import("@supabase/supabase-js")
       const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!)
 
@@ -139,8 +156,9 @@ export async function GET() {
       }
 
       return NextResponse.json({ workers: data || [] })
-    } else if (isNeon) {
-      // Use Neon
+    }
+
+    if (dbType === "neon") {
       const { neon } = await import("@neondatabase/serverless")
       const sql = neon(process.env.DATABASE_URL!)
 
@@ -150,8 +168,10 @@ export async function GET() {
       `
 
       return NextResponse.json({ workers })
-    } else if (isMySQL) {
-      const connection = await getPool().getConnection()
+    }
+
+    if (dbType === "mysql") {
+      const connection = await getMysqlPool().getConnection()
 
       const [workers] = await connection.execute(`SELECT * FROM restaurant_workers ORDER BY created_at DESC`)
 
@@ -159,6 +179,12 @@ export async function GET() {
 
       return NextResponse.json({ workers })
     }
+
+    // SQLite (default)
+    const db = getSqliteDb()
+    const workers = db.prepare("SELECT * FROM restaurant_workers ORDER BY created_at DESC").all()
+
+    return NextResponse.json({ workers })
   } catch (error) {
     console.error("Error fetching workers:", error)
     return NextResponse.json(
