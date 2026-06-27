@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fff7ef;
+  --foreground: #24150f;
+
+  --card: #fffaf6;
+  --card-foreground: #24150f;
+  --popover: #fffaf6;
+  --popover-foreground: #24150f;
+
+  --surface: #fffaf6;
+  --surface-variant: #f6e9de;
+  --surface-container: #fbefe6;
+  --surface-container-high: #fff4ed;
+  --surface-container-highest: #fffdfb;
+
+  --primary: #a64218;
+  --primary-foreground: #fff8f4;
+  --primary-dark: #7d2c0a;
+  --primary-light: #ffd8c5;
+  --primary-strong: #8c340c;
+
+  --secondary: #6a4a38;
+  --secondary-foreground: #fff7f2;
+  --tertiary: #3d6e63;
+  --tertiary-foreground: #f2fffb;
+
+  --muted: #f3e6dc;
+  --muted-foreground: #7d675a;
+  --accent: #ffe6b8;
+  --accent-foreground: #7a4706;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #fff5f5;
+  --success: #177a54;
+  --warning: #ca7a00;
+  --error: #ef4444;
+  --info: #2563eb;
+
+  --border: #e2cfbf;
+  --input: #d9c3b2;
+  --ring: #cb6025;
+
+  --text-primary: #24150f;
+  --text-secondary: #71584b;
+  --text-muted: #9d8577;
+
+  --radius-compact: 10px;
+  --radius-medium: 16px;
+  --radius-large: 22px;
+  --radius-xl: 28px;
+  --radius-xxl: 36px;
+  --radius-pill: 999px;
+  --radius-sm: var(--radius-compact);
+  --radius-md: var(--radius-medium);
+  --radius-lg: var(--radius-large);
+  --radius-2xl: var(--radius-xxl);
+  --radius: var(--radius-large);
+
+  --shadow-elevation-1: 0 1px 2px rgba(36, 21, 15, 0.05), 0 10px 24px rgba(36, 21, 15, 0.05);
+  --shadow-elevation-2: 0 14px 34px rgba(36, 21, 15, 0.08), 0 5px 18px rgba(166, 66, 24, 0.1);
+  --shadow-elevation-3: 0 28px 70px rgba(36, 21, 15, 0.14), 0 12px 28px rgba(166, 66, 24, 0.12);
+  --shadow-brand: 0 22px 48px rgba(166, 66, 24, 0.2);
+  --shadow-focus: 0 0 0 4px rgba(203, 96, 37, 0.18);
+  --shadow-sm: var(--shadow-elevation-1);
+  --shadow-md: var(--shadow-elevation-2);
+  --shadow-lg: var(--shadow-elevation-3);
+
+  --font-sans: var(--font-bhukkad-sans);
+  --font-display: var(--font-bhukkad-display);
+  --font-script: var(--font-bhukkad-script);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #1a100c;
+  --foreground: #f7e5d7;
+
+  --card: #241611;
+  --card-foreground: #f7e5d7;
+  --popover: #241611;
+  --popover-foreground: #f7e5d7;
+
+  --surface: #241611;
+  --surface-variant: #34211a;
+  --surface-container: #2b1a14;
+  --surface-container-high: #34221a;
+  --surface-container-highest: #3d281f;
+
+  --primary: #ffb58b;
+  --primary-foreground: #4a1800;
+  --primary-dark: #ffd9c4;
+  --primary-light: #6f2b0d;
+  --primary-strong: #ffe5d6;
+
+  --secondary: #e2c1ad;
+  --secondary-foreground: #3b2418;
+  --tertiary: #91d6c7;
+  --tertiary-foreground: #123c35;
+
+  --muted: #39251d;
+  --muted-foreground: #c7ab9a;
+  --accent: #5c3f16;
+  --accent-foreground: #ffe6b8;
+
+  --destructive: #f87171;
+  --destructive-foreground: #450a0a;
+  --success: #55d39f;
+  --warning: #ffc75a;
+  --error: #f87171;
+  --info: #8db6ff;
+
+  --border: #5a4034;
+  --input: #5a4034;
+  --ring: #ff9a63;
+
+  --text-primary: #f7e5d7;
+  --text-secondary: #ddc0af;
+  --text-muted: #b89581;
+
+  --shadow-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.34), 0 10px 24px rgba(0, 0, 0, 0.2);
+  --shadow-elevation-2: 0 16px 38px rgba(0, 0, 0, 0.36), 0 6px 18px rgba(255, 181, 139, 0.08);
+  --shadow-elevation-3: 0 28px 74px rgba(0, 0, 0, 0.46), 0 14px 28px rgba(255, 181, 139, 0.1);
+  --shadow-brand: 0 22px 52px rgba(255, 181, 139, 0.16);
+  --shadow-focus: 0 0 0 4px rgba(255, 154, 99, 0.16);
+  --shadow-sm: var(--shadow-elevation-1);
+  --shadow-md: var(--shadow-elevation-2);
+  --shadow-lg: var(--shadow-elevation-3);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-surface: var(--surface);
+  --color-surface-variant: var(--surface-variant);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-script: var(--font-script);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--primary) 14%, transparent) 0, transparent 34%),
+    radial-gradient(circle at 88% 2%, color-mix(in srgb, var(--accent) 16%, transparent) 0, transparent 26%),
+    radial-gradient(circle at 100% 22%, color-mix(in srgb, var(--tertiary) 10%, transparent) 0, transparent 24%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 24%, transparent);
+  color: var(--foreground);
+}
+
+.surface-shell {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface-container-highest) 96%, var(--background)) 0%,
+      color-mix(in srgb, var(--surface-container-high) 92%, var(--background)) 100%
+    );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-elevation-1);
+}
+
+.app-canvas {
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--primary) 15%, transparent) 0, transparent 34%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 14%, transparent) 0, transparent 24%),
+    radial-gradient(circle at right center, color-mix(in srgb, var(--tertiary) 12%, transparent) 0, transparent 26%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-container-highest) 88%, transparent) 0%, transparent 100%);
+}
+
+.app-panel {
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--surface-container-highest) 98%, var(--background));
+  box-shadow: var(--shadow-elevation-2);
+}
+
+.app-panel-subtle {
+  border: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  background: color-mix(in srgb, var(--surface-container-high) 95%, var(--background));
+  box-shadow: var(--shadow-elevation-1);
+}
+
+.app-hero-glow {
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--primary) 16%, transparent) 0, transparent 38%),
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 28%),
+    radial-gradient(circle at right center, color-mix(in srgb, var(--tertiary) 11%, transparent) 0, transparent 26%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--surface-container-highest) 98%, var(--surface)) 0%,
+      color-mix(in srgb, var(--surface-container) 94%, var(--background)) 100%
+    );
+}
+
+.brand-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.brand-script {
+  font-family: var(--font-script), var(--font-display), sans-serif;
+  letter-spacing: -0.02em;
+}

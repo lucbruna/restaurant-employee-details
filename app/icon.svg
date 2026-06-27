@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bhukkadBg" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff7a18"/>
+      <stop offset="1" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="bhukkadSteam" x1="26" y1="10" x2="38" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff7ed" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#fdba74" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="18" fill="url(#bhukkadBg)"/>
+  <path d="M22 22c-1.5-2.75-.67-6.08 2.2-8.5 2.63 2.04 3.5 5.05 1.85 7.85-.95 1.62-2.32 2.7-4.05 3.45z" fill="url(#bhukkadSteam)"/>
+  <path d="M31 18c-.92-2.6-.2-5.48 1.95-7.62 2.3 1.78 3.08 4.43 2.08 6.98-.73 1.85-2 3.08-4.03 4.15z" fill="url(#bhukkadSteam)"/>
+  <path d="M39.5 21c-.54-2.46.33-4.9 2.28-6.78 2 1.54 2.62 3.85 1.85 6.02-.55 1.56-1.67 2.7-3.56 3.8z" fill="url(#bhukkadSteam)"/>
+  <path d="M18 32c0-3.31 2.69-6 6-6h16c5.52 0 10 4.48 10 10v6c0 5.52-4.48 10-10 10H24c-3.31 0-6-2.69-6-6V32z" fill="#fff7ed"/>
+  <path d="M23 31h18c4.97 0 9 4.03 9 9v4c0 1.66-1.34 3-3 3H27c-2.76 0-5-2.24-5-5V31z" fill="#7c2d12" opacity="0.16"/>
+  <path d="M17 38h4.5c1.38 0 2.5 1.12 2.5 2.5S22.88 43 21.5 43H17c-1.38 0-2.5-1.12-2.5-2.5S15.62 38 17 38z" fill="#fff7ed"/>
+  <circle cx="28" cy="39" r="3" fill="#f97316"/>
+  <circle cx="36" cy="39" r="3" fill="#fb923c"/>
+  <circle cx="44" cy="39" r="3" fill="#fdba74"/>
+</svg>

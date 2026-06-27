@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: bhukkad
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:render
+    envVars:
+      - key: APP_URL
+        sync: false
+      - key: AUTH_SECRET
+        sync: false
+      - key: SOCKET_ALLOWED_ORIGINS
+        sync: false
+      - key: PAYMENTS_DEFAULT_PROVIDER
+        value: manual
+      - key: SQLITE_DB_PATH
+        value: ./sqlite.db
+      - key: GEMINI_API_KEY
+        sync: false
