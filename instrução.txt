@@ -1,0 +1,6 @@
+Pra rodar:
+npm install
+npm run db:setup
+npm run dev          # App principal :3000
+npm run dev:customer # Cliente :3001
+Login: admin@admin.com / admin (PIN: 1111)
